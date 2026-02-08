@@ -30,6 +30,12 @@ export async function GET(
       );
     }
 
+    // Parser les breaks JSON
+    const availabilityWithBreaks = user.availability.map((av) => ({
+      ...av,
+      breaks: av.breaks ? JSON.parse(av.breaks) : [],
+    }));
+
     return NextResponse.json({
       user: {
         id: user.id,
@@ -38,7 +44,7 @@ export async function GET(
         username: user.username,
       },
       eventTypes: user.eventTypes,
-      availability: user.availability,
+      availability: availabilityWithBreaks,
     });
   } catch (error) {
     console.error("Erreur:", error);

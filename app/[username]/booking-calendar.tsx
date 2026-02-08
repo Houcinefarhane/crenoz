@@ -6,10 +6,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateTimeSlots } from "@/lib/date-utils";
 
+interface Break {
+  startTime: string;
+  endTime: string;
+}
+
 interface Availability {
   dayOfWeek: number;
   startTime: string;
   endTime: string;
+  breaks?: Break[];
 }
 
 interface BookingCalendarProps {
@@ -51,7 +57,8 @@ export function BookingCalendar({
     return generateTimeSlots(
       dayAvailability.startTime,
       dayAvailability.endTime,
-      duration
+      duration,
+      dayAvailability.breaks || []
     );
   };
 
@@ -140,50 +147,48 @@ export function BookingCalendar({
           })}
         </div>
 
-        {/* Mobile: Scroll horizontal avec jours plus larges */}
-        <div className="sm:hidden overflow-x-auto -mx-4 px-4 pb-2">
-          <div className="flex gap-2 min-w-max">
-            {weekDays.map((day, index) => {
-              const slots = getTimeSlotsForDay(day);
-              const isSelected = selectedDate && isSameDay(day, selectedDate);
-              const isToday = isSameDay(day, new Date());
-              const isPast = day < new Date() && !isToday;
+        {/* Mobile: Grille compacte pour voir toute la semaine */}
+        <div className="sm:hidden grid grid-cols-7 gap-1.5">
+          {weekDays.map((day, index) => {
+            const slots = getTimeSlotsForDay(day);
+            const isSelected = selectedDate && isSameDay(day, selectedDate);
+            const isToday = isSameDay(day, new Date());
+            const isPast = day < new Date() && !isToday;
 
-              return (
-                <button
-                  key={index}
-                  onClick={() => handleDateClick(day)}
-                  disabled={slots.length === 0 || isPast}
-                  className={`
-                    flex-shrink-0 w-20 p-3 rounded-xl border-2 transition-all text-center font-medium
-                    ${
-                      isSelected
-                        ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
-                        : slots.length > 0 && !isPast
-                        ? "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50"
-                        : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
-                    }
-                  `}
+            return (
+              <button
+                key={index}
+                onClick={() => handleDateClick(day)}
+                disabled={slots.length === 0 || isPast}
+                className={`
+                  p-2 rounded-lg border-2 transition-all text-center font-medium
+                  ${
+                    isSelected
+                      ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
+                      : slots.length > 0 && !isPast
+                      ? "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50"
+                      : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
+                  }
+                `}
+              >
+                <div className="text-[9px] uppercase text-gray-500 mb-0.5 font-medium leading-tight">
+                  {format(day, "EEE")}
+                </div>
+                <div
+                  className={`text-base font-bold leading-tight ${
+                    isToday ? "text-emerald-600" : "text-gray-900"
+                  }`}
                 >
-                  <div className="text-[10px] uppercase text-gray-500 mb-1 font-medium">
-                    {format(day, "EEE")}
+                  {format(day, "d")}
+                </div>
+                {slots.length > 0 && !isPast && (
+                  <div className="text-[8px] text-emerald-600 mt-0.5 font-semibold">
+                    {slots.length}
                   </div>
-                  <div
-                    className={`text-xl font-bold ${
-                      isToday ? "text-emerald-600" : "text-gray-900"
-                    }`}
-                  >
-                    {format(day, "d")}
-                  </div>
-                  {slots.length > 0 && !isPast && (
-                    <div className="text-[9px] text-emerald-600 mt-1 font-semibold">
-                      {slots.length}
-                    </div>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 

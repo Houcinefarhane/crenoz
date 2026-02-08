@@ -94,6 +94,7 @@ model Availability {
   dayOfWeek Int      // 0 = dimanche, 1 = lundi, etc.
   startTime String   // Format HH:mm
   endTime   String   // Format HH:mm
+  breaks    String?  @db.Text // JSON array: [{"startTime": "12:00", "endTime": "14:00"}]
   enabled   Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

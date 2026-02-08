@@ -3,13 +3,19 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Clock, Save } from "lucide-react";
+import { Clock, Save, Plus, X } from "lucide-react";
+
+interface Break {
+  startTime: string;
+  endTime: string;
+}
 
 interface Availability {
   id: string;
   dayOfWeek: number;
   startTime: string;
   endTime: string;
+  breaks?: Break[];
   enabled: boolean;
 }
 
@@ -67,11 +73,40 @@ export function AvailabilityManager({
           dayOfWeek,
           startTime: "09:00",
           endTime: "17:00",
+          breaks: [],
           enabled: true,
         }),
         [field]: value,
       },
     }));
+  };
+
+  const addBreak = (dayOfWeek: number) => {
+    const av = availabilities[dayOfWeek] || {
+      id: "",
+      dayOfWeek,
+      startTime: "09:00",
+      endTime: "17:00",
+      breaks: [],
+      enabled: true,
+    };
+    const newBreaks = [...(av.breaks || []), { startTime: "12:00", endTime: "13:00" }];
+    updateAvailability(dayOfWeek, "breaks", newBreaks);
+  };
+
+  const removeBreak = (dayOfWeek: number, breakIndex: number) => {
+    const av = availabilities[dayOfWeek];
+    if (!av || !av.breaks) return;
+    const newBreaks = av.breaks.filter((_, i) => i !== breakIndex);
+    updateAvailability(dayOfWeek, "breaks", newBreaks);
+  };
+
+  const updateBreak = (dayOfWeek: number, breakIndex: number, field: string, value: string) => {
+    const av = availabilities[dayOfWeek];
+    if (!av || !av.breaks) return;
+    const newBreaks = [...av.breaks];
+    newBreaks[breakIndex] = { ...newBreaks[breakIndex], [field]: value };
+    updateAvailability(dayOfWeek, "breaks", newBreaks);
   };
 
   const saveAll = async () => {
@@ -81,7 +116,10 @@ export function AvailabilityManager({
         fetch("/api/availability", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(av),
+          body: JSON.stringify({
+            ...av,
+            breaks: av.breaks || [],
+          }),
         })
       );
 
@@ -124,6 +162,7 @@ export function AvailabilityManager({
             dayOfWeek: index,
             startTime: "09:00",
             endTime: "17:00",
+            breaks: [],
             enabled: false,
           };
 
@@ -148,7 +187,7 @@ export function AvailabilityManager({
                 </div>
 
                 {av.enabled && (
-                  <div className="flex items-center gap-4 flex-1">
+                  <div className="flex-1 space-y-3">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-400" />
                       <Input
@@ -168,6 +207,53 @@ export function AvailabilityManager({
                         }
                         className="w-32"
                       />
+                    </div>
+                    
+                    {/* Pauses */}
+                    <div className="ml-6 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-600 font-medium">Pauses :</span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => addBreak(index)}
+                          className="h-7 text-xs"
+                        >
+                          <Plus className="h-3 w-3 mr-1" />
+                          Ajouter une pause
+                        </Button>
+                      </div>
+                      {(av.breaks || []).map((breakItem, breakIndex) => (
+                        <div key={breakIndex} className="flex items-center gap-2">
+                          <Input
+                            type="time"
+                            value={breakItem.startTime}
+                            onChange={(e) =>
+                              updateBreak(index, breakIndex, "startTime", e.target.value)
+                            }
+                            className="w-28 text-sm"
+                          />
+                          <span className="text-gray-500 text-sm">à</span>
+                          <Input
+                            type="time"
+                            value={breakItem.endTime}
+                            onChange={(e) =>
+                              updateBreak(index, breakIndex, "endTime", e.target.value)
+                            }
+                            className="w-28 text-sm"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeBreak(index, breakIndex)}
+                            className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}

@@ -6,10 +6,16 @@ import { z } from "zod";
 
 export const runtime = "nodejs";
 
+const breakSchema = z.object({
+  startTime: z.string().regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/),
+  endTime: z.string().regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/),
+});
+
 const availabilitySchema = z.object({
   dayOfWeek: z.number().min(0).max(6), // 0 = dimanche, 6 = samedi
   startTime: z.string().regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/),
   endTime: z.string().regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/),
+  breaks: z.array(breakSchema).optional().default([]),
   enabled: z.boolean().default(true),
 });
 
@@ -26,7 +32,13 @@ export async function GET() {
       orderBy: { dayOfWeek: "asc" },
     });
 
-    return NextResponse.json(availabilities);
+    // Parser les breaks JSON
+    const availabilitiesWithBreaks = availabilities.map((av) => ({
+      ...av,
+      breaks: av.breaks ? JSON.parse(av.breaks) : [],
+    }));
+
+    return NextResponse.json(availabilitiesWithBreaks);
   } catch (error) {
     console.error("Erreur lors de la récupération des disponibilités:", error);
     return NextResponse.json(
@@ -45,7 +57,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { dayOfWeek, startTime, endTime, enabled } =
+    const { dayOfWeek, startTime, endTime, breaks = [], enabled } =
       availabilitySchema.parse(body);
 
     // Vérifier que startTime < endTime
@@ -72,6 +84,7 @@ export async function POST(request: NextRequest) {
       update: {
         startTime,
         endTime,
+        breaks: breaks.length > 0 ? JSON.stringify(breaks) : null,
         enabled,
       },
       create: {
@@ -79,6 +92,7 @@ export async function POST(request: NextRequest) {
         dayOfWeek,
         startTime,
         endTime,
+        breaks: breaks.length > 0 ? JSON.stringify(breaks) : null,
         enabled,
       },
     });
