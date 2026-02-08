@@ -208,9 +208,9 @@ export default function Home() {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="group relative"
               >
-                <div className="glass-effect rounded-2xl p-6 border border-white/20 hover:border-purple-200/50 transition-all h-full">
-                  <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <feature.icon className="h-7 w-7 text-purple-600" />
+                <div className="glass-effect rounded-2xl p-6 border border-white/20 hover:border-emerald-200/50 transition-all h-full">
+                  <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <feature.icon className="h-7 w-7 text-emerald-600" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-gray-900">
                     {feature.title}
