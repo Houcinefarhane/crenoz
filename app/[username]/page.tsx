@@ -46,10 +46,6 @@ export default function BookingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    fetchUserData();
-  }, [username]);
-
   const fetchUserData = async () => {
     try {
       const response = await fetch(`/api/users/${username}`);
@@ -66,6 +62,11 @@ export default function BookingPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

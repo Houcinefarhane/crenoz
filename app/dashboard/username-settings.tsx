@@ -9,8 +9,8 @@ import { Loader2 } from "lucide-react";
 interface UsernameSettingsProps {
   user: {
     id: string;
-    username: string | null;
-    name: string | null;
+    username?: string | null;
+    name?: string | null;
   };
 }
 
@@ -83,8 +83,8 @@ export function UsernameSettings({ user }: UsernameSettingsProps) {
       {!user.username ? (
         <div className="space-y-4">
           <p className="text-gray-600 text-sm">
-            Définissez un nom d'utilisateur pour créer votre page de réservation
-            publique. Les clients pourront réserver via l'URL :{" "}
+            Définissez un nom d&apos;utilisateur pour créer votre page de réservation
+            publique. Les clients pourront réserver via l&apos;URL :{" "}
             <code className="bg-gray-100 px-2 py-1 rounded">
               {window.location.origin}/[votre-username]
             </code>
@@ -92,7 +92,7 @@ export function UsernameSettings({ user }: UsernameSettingsProps) {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Nom d'utilisateur *
+              Nom d&apos;utilisateur *
             </label>
             <div className="flex gap-2">
               <Input
@@ -156,7 +156,7 @@ export function UsernameSettings({ user }: UsernameSettingsProps) {
               </Button>
             </div>
             <p className="text-xs text-gray-500 mt-2">
-              Partagez cette URL avec vos clients pour qu'ils puissent réserver
+              Partagez cette URL avec vos clients pour qu&apos;ils puissent réserver
             </p>
           </div>
 

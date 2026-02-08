@@ -18,7 +18,7 @@ interface BookingCalendarProps {
   selectedDate: Date | null;
   selectedTime: string | null;
   onDateSelect: (date: Date) => void;
-  onTimeSelect: (time: string) => void;
+  onTimeSelect: (time: string | null) => void;
 }
 
 export function BookingCalendar({
