@@ -51,7 +51,7 @@ RESEND_FROM_EMAIL=onboarding@resend.dev
 
 ### Email expéditeur par utilisateur
 
-Actuellement, tous les emails sont envoyés depuis `RESEND_FROM_EMAIL` (ou `noreply@crenoz.app` par défaut).
+Actuellement, tous les emails sont envoyés depuis `RESEND_FROM_EMAIL` (ou `onboarding@resend.dev` par défaut pour les tests).
 
 **Pour personnaliser l'expéditeur par utilisateur** (futur) :
 - Ajouter un champ `emailFrom` dans le modèle `User`
