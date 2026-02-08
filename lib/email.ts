@@ -57,6 +57,7 @@ async function sendEmailViaBrevo(
     }
 
     console.log("✅ Email envoyé via Brevo avec succès:", data);
+    console.log("📬 MessageId:", data.messageId, "- Vérifiez le statut dans Brevo Dashboard");
     return { success: true, data };
   } catch (error) {
     console.error("❌ Erreur lors de l'envoi de l'email via Brevo:", error);
