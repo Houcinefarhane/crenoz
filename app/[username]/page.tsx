@@ -109,6 +109,8 @@ export default function BookingPage() {
         setAttendeeName("");
         setAttendeeEmail("");
         setNotes("");
+        // Recharger les données pour mettre à jour les créneaux disponibles
+        await fetchUserData();
       } else {
         const error = await response.json();
         alert(error.error || "Erreur lors de la réservation");
