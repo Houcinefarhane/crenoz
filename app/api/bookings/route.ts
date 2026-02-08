@@ -77,7 +77,40 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // TODO: Envoyer les emails de confirmation (Resend)
+    // Envoyer les emails de confirmation (Resend)
+    try {
+      const { sendBookingConfirmationToPro, sendBookingConfirmationToClient } = await import("@/lib/email");
+      
+      // Email au professionnel
+      await sendBookingConfirmationToPro({
+        to: booking.user.email,
+        from: process.env.RESEND_FROM_EMAIL || "noreply@crenoz.app", // Email par défaut ou configuré
+        fromName: booking.user.name || "Crenoz",
+        attendeeName: booking.attendeeName,
+        attendeeEmail: booking.attendeeEmail,
+        eventName: booking.eventType.name,
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        timezone: booking.timezone,
+        notes: booking.notes || undefined,
+      });
+
+      // Email au client
+      await sendBookingConfirmationToClient({
+        to: booking.attendeeEmail,
+        from: process.env.RESEND_FROM_EMAIL || "noreply@crenoz.app",
+        fromName: booking.user.name || "Crenoz",
+        attendeeName: booking.attendeeName,
+        eventName: booking.eventType.name,
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        timezone: booking.timezone,
+        notes: booking.notes || undefined,
+      });
+    } catch (emailError) {
+      // Ne pas faire échouer la création de réservation si l'email échoue
+      console.error("Erreur lors de l'envoi des emails:", emailError);
+    }
 
     return NextResponse.json(booking, { status: 201 });
   } catch (error) {
