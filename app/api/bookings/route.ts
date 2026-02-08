@@ -101,6 +101,7 @@ export async function POST(request: NextRequest) {
         from: process.env.RESEND_FROM_EMAIL || "noreply@crenoz.app",
         fromName: booking.user.name || "Crenoz",
         attendeeName: booking.attendeeName,
+        attendeeEmail: booking.attendeeEmail,
         eventName: booking.eventType.name,
         startTime: booking.startTime,
         endTime: booking.endTime,
