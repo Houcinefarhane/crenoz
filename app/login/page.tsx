@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Lock } from "lucide-react";
+import { ArrowRight, Mail, Lock, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -73,29 +73,67 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/30 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30 flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-20 right-20 w-64 h-64 bg-purple-300/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [0, -90, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute bottom-20 left-20 w-64 h-64 bg-pink-300/20 rounded-full blur-3xl"
+        />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md relative z-10"
       >
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+        <div className="glass-effect rounded-3xl shadow-2xl border border-white/20 p-8">
           <div className="text-center mb-8">
             <Link href="/">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent mb-2">
+              <motion.h1
+                whileHover={{ scale: 1.05 }}
+                className="text-3xl font-bold gradient-text mb-2 cursor-pointer"
+              >
                 Crenoz
-              </h1>
+              </motion.h1>
             </Link>
-            <p className="text-gray-600">
-              {isLogin ? "Connectez-vous à votre compte" : "Créez votre compte"}
-            </p>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-purple-600" />
+              <p className="text-gray-600 font-medium">
+                {isLogin ? "Connectez-vous à votre compte" : "Créez votre compte"}
+              </p>
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Nom complet
                 </label>
                 <div className="relative">
@@ -103,16 +141,20 @@ export default function LoginPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
                     placeholder="Votre nom"
                     required={!isLogin}
                   />
                 </div>
-              </div>
+              </motion.div>
             )}
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: isLogin ? 0.1 : 0.2 }}
+            >
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Email
               </label>
               <div className="relative">
@@ -121,15 +163,19 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
                   placeholder="votre@email.com"
                   required
                 />
               </div>
-            </div>
+            </motion.div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: isLogin ? 0.2 : 0.3 }}
+            >
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Mot de passe
               </label>
               <div className="relative">
@@ -138,33 +184,46 @@ export default function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
                   placeholder="••••••••"
                   required
                 />
               </div>
-            </div>
+            </motion.div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm"
+              >
                 {error}
-              </div>
+              </motion.div>
             )}
 
-            <Button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg"
-              disabled={loading}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: isLogin ? 0.3 : 0.4 }}
             >
-              {loading ? (
-                "Chargement..."
-              ) : (
-                <>
-                  {isLogin ? "Se connecter" : "Créer mon compte"}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </>
-              )}
-            </Button>
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-6 text-lg font-semibold shadow-lg shadow-purple-500/30 relative overflow-hidden group"
+                disabled={loading}
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  {loading ? (
+                    "Chargement..."
+                  ) : (
+                    <>
+                      {isLogin ? "Se connecter" : "Créer mon compte"}
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </span>
+                {!loading && <div className="absolute inset-0 shimmer" />}
+              </Button>
+            </motion.div>
           </form>
 
           <div className="mt-6 text-center">
@@ -173,7 +232,7 @@ export default function LoginPage() {
                 setIsLogin(!isLogin);
                 setError("");
               }}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              className="text-sm text-purple-600 hover:text-purple-700 font-semibold transition-colors"
             >
               {isLogin
                 ? "Pas encore de compte ? Créez-en un"

@@ -150,32 +150,32 @@ export default function BookingPage() {
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-md text-center"
         >
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Check className="h-8 w-8 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Réservation confirmée !
+          <h2 className="text-2xl font-bold mb-2">
+            <span className="gradient-text">Réservation confirmée !</span>
           </h2>
           <p className="text-gray-600 mb-6">
             Vous recevrez un email de confirmation sous peu.
           </p>
-          <Button
-            onClick={() => {
-              setSuccess(false);
-              setSelectedDate(null);
-              setSelectedTime(null);
-            }}
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            Nouvelle réservation
-          </Button>
+            <Button
+              onClick={() => {
+                setSuccess(false);
+                setSelectedDate(null);
+                setSelectedTime(null);
+              }}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
+            >
+              Nouvelle réservation
+            </Button>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -184,10 +184,12 @@ export default function BookingPage() {
           className="max-w-6xl mx-auto"
         >
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Réservez un rendez-vous avec {data.user.name || username}
+            <h1 className="text-4xl font-bold mb-2">
+              <span className="gradient-text">Réservez</span> un rendez-vous
+              <br />
+              <span className="text-gray-900">avec {data.user.name || username}</span>
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg font-light">
               Sélectionnez un type de rendez-vous et un créneau disponible
             </p>
           </div>
@@ -195,7 +197,7 @@ export default function BookingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Colonne gauche : Types de RDV */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 sticky top-8">
+              <div className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6 sticky top-8">
                 <h2 className="text-xl font-semibold mb-4">Type de rendez-vous</h2>
                 <div className="space-y-3">
                   {data.eventTypes.map((eventType) => (
@@ -206,10 +208,10 @@ export default function BookingPage() {
                         setSelectedDate(null);
                         setSelectedTime(null);
                       }}
-                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                         selectedEventType?.id === eventType.id
-                          ? "border-blue-600 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
+                          ? "border-purple-600 bg-gradient-to-r from-purple-50 to-pink-50 shadow-lg"
+                          : "border-gray-200 hover:border-purple-300 hover:bg-purple-50/50"
                       }`}
                     >
                       <div className="flex items-start justify-between">
@@ -239,7 +241,7 @@ export default function BookingPage() {
               {selectedEventType && (
                 <div className="space-y-6">
                   {/* Calendrier */}
-                  <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+                  <div className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6">
                     <h2 className="text-xl font-semibold mb-4">
                       Sélectionnez une date et une heure
                     </h2>
@@ -258,7 +260,7 @@ export default function BookingPage() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-white rounded-xl shadow-lg border border-gray-100 p-6"
+                      className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6"
                     >
                       <h2 className="text-xl font-semibold mb-4">
                         Vos informations
@@ -311,7 +313,7 @@ export default function BookingPage() {
 
                         <Button
                           type="submit"
-                          className="w-full bg-blue-600 hover:bg-blue-700"
+                          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30 font-semibold"
                           disabled={submitting}
                         >
                           {submitting ? "Réservation en cours..." : "Confirmer la réservation"}

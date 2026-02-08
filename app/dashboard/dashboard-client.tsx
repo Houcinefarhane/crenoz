@@ -102,12 +102,12 @@ export function DashboardClient({ user }: DashboardClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="glass-effect border-b border-white/20 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold gradient-text">
               Crenoz
             </h1>
             <div className="flex items-center gap-4">
@@ -144,20 +144,20 @@ export function DashboardClient({ user }: DashboardClientProps) {
           <div className="flex gap-4 mb-8 border-b border-gray-200">
             <button
               onClick={() => setShowAvailability(false)}
-              className={`pb-4 px-4 font-medium ${
+              className={`pb-4 px-4 font-semibold transition-colors ${
                 !showAvailability
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "text-purple-600 border-b-2 border-purple-600"
+                  : "text-gray-600 hover:text-purple-600"
               }`}
             >
               Types de RDV
             </button>
             <button
               onClick={() => setShowAvailability(true)}
-              className={`pb-4 px-4 font-medium ${
+              className={`pb-4 px-4 font-semibold transition-colors ${
                 showAvailability
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "text-purple-600 border-b-2 border-purple-600"
+                  : "text-gray-600 hover:text-purple-600"
               }`}
             >
               Disponibilités
@@ -176,7 +176,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                   </p>
                 </div>
                 <Button
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
                   onClick={() => {
                     setEditingEventType(null);
                     setShowDialog(true);
@@ -192,13 +192,13 @@ export function DashboardClient({ user }: DashboardClientProps) {
                   <p className="text-gray-500">Chargement...</p>
                 </div>
               ) : eventTypes.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-                  <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 mb-4">
+                <div className="text-center py-12 glass-effect rounded-2xl border border-white/20">
+                  <Calendar className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+                  <p className="text-gray-600 mb-4 font-medium">
                     Aucun type de rendez-vous créé
                   </p>
                   <Button
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
                     onClick={() => {
                       setEditingEventType(null);
                       setShowDialog(true);
@@ -211,20 +211,17 @@ export function DashboardClient({ user }: DashboardClientProps) {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {eventTypes.map((eventType) => (
-                    <motion.div
-                      key={eventType.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div
-                          className={`w-12 h-12 rounded-lg flex items-center justify-center bg-${eventType.color}-100`}
-                        >
-                          <Calendar
-                            className={`h-6 w-6 text-${eventType.color}-600`}
-                          />
-                        </div>
+                <motion.div
+                  key={eventType.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="glass-effect rounded-2xl border border-white/20 p-6 hover:border-purple-200/50 transition-all group"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Calendar className="h-7 w-7 text-purple-600" />
+                    </div>
                         <div className="flex gap-2">
                           <Button
                             variant="ghost"

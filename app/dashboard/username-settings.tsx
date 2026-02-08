@@ -104,7 +104,7 @@ export function UsernameSettings({ user }: UsernameSettingsProps) {
               <Button
                 onClick={handleSave}
                 disabled={loading || !username}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
               >
                 {loading ? (
                   <>
