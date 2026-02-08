@@ -22,7 +22,7 @@ Crenoz est un clone moderne de Calendly, construit avec Next.js 14, TypeScript, 
 - **Animations**: Framer Motion
 - **Base de données**: PostgreSQL + Prisma
 - **Authentification**: NextAuth.js
-- **Emails**: Brevo (anciennement Sendinblue)
+- **Emails**: Resend
 - **Calendar**: Google Calendar API
 
 ## 📦 Installation
@@ -47,8 +47,8 @@ Remplissez les variables dans `.env` :
 - `DATABASE_URL` : URL de votre base de données PostgreSQL (voir `SETUP_POSTGRES.md`)
 - `NEXTAUTH_SECRET` : Générez une clé secrète (ex: `openssl rand -base64 32`)
 - `NEXTAUTH_URL` : URL de votre application (ex: `http://localhost:3000`)
-- `BREVO_API_KEY` : Clé API Brevo pour l'envoi d'emails (voir `BREVO_SETUP.md`)
-- `BREVO_FROM_EMAIL` : Email expéditeur par défaut (optionnel, sinon utilise l'email de l'utilisateur)
+- `RESEND_API_KEY` : Clé API Resend pour l'envoi d'emails (voir `RESEND_SETUP.md`)
+- `RESEND_FROM_EMAIL` : Email expéditeur par défaut (optionnel, ex: `onboarding@resend.dev` ou votre domaine vérifié)
 
 **Note** : Google OAuth et Google Calendar sont optionnels pour l'instant.
 

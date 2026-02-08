@@ -81,20 +81,17 @@ export async function POST(request: NextRequest) {
     try {
       const { sendBookingConfirmationToPro, sendBookingConfirmationToClient } = await import("@/lib/email");
       
-      // Vérifier la configuration Brevo
-      if (!process.env.BREVO_API_KEY) {
-        console.warn("⚠️ BREVO_API_KEY non configurée - les emails ne seront pas envoyés");
+      // Vérifier la configuration Resend
+      if (!process.env.RESEND_API_KEY) {
+        console.warn("⚠️ RESEND_API_KEY non configurée - les emails ne seront pas envoyés");
       } else {
-        console.log("✅ BREVO_API_KEY configurée:", process.env.BREVO_API_KEY.substring(0, 10) + "...");
+        console.log("✅ RESEND_API_KEY configurée:", process.env.RESEND_API_KEY.substring(0, 10) + "...");
       }
 
-      // IMPORTANT: Brevo exige maintenant DKIM/DMARC pour les expéditeurs
-      // Utilisez un email vérifié dans Brevo (Settings → Senders & IP)
-      // Par défaut, utilisez l'email par défaut de Brevo ou un email vérifié
-      const fromEmail = process.env.BREVO_FROM_EMAIL || "noreply@sendinblue.com";
+      // Utiliser l'email configuré dans RESEND_FROM_EMAIL ou un email par défaut
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
       console.log("📧 Email expéditeur configuré:", fromEmail);
-      console.log("📧 BREVO_FROM_EMAIL env var:", process.env.BREVO_FROM_EMAIL || "non défini (utilise défaut Brevo)");
-      console.log("⚠️ Assurez-vous que cet email est vérifié dans Brevo (Settings → Senders & IP)");
+      console.log("📧 RESEND_FROM_EMAIL env var:", process.env.RESEND_FROM_EMAIL || "non défini (utilise onboarding@resend.dev)");
 
       // Email au professionnel
       const proResult = await sendBookingConfirmationToPro({
