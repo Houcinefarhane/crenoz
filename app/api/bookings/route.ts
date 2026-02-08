@@ -81,10 +81,20 @@ export async function POST(request: NextRequest) {
     try {
       const { sendBookingConfirmationToPro, sendBookingConfirmationToClient } = await import("@/lib/email");
       
+      // Vérifier la configuration Resend
+      if (!process.env.RESEND_API_KEY) {
+        console.warn("⚠️ RESEND_API_KEY non configurée - les emails ne seront pas envoyés");
+      } else {
+        console.log("✅ RESEND_API_KEY configurée");
+      }
+
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"; // Utiliser le domaine par défaut Resend
+      console.log("📧 Email expéditeur:", fromEmail);
+
       // Email au professionnel
-      await sendBookingConfirmationToPro({
+      const proResult = await sendBookingConfirmationToPro({
         to: booking.user.email,
-        from: process.env.RESEND_FROM_EMAIL || "noreply@crenoz.app", // Email par défaut ou configuré
+        from: fromEmail,
         fromName: booking.user.name || "Crenoz",
         attendeeName: booking.attendeeName,
         attendeeEmail: booking.attendeeEmail,
@@ -95,10 +105,14 @@ export async function POST(request: NextRequest) {
         notes: booking.notes || undefined,
       });
 
+      if (!proResult.success) {
+        console.error("❌ Échec envoi email au professionnel:", proResult.error);
+      }
+
       // Email au client
-      await sendBookingConfirmationToClient({
+      const clientResult = await sendBookingConfirmationToClient({
         to: booking.attendeeEmail,
-        from: process.env.RESEND_FROM_EMAIL || "noreply@crenoz.app",
+        from: fromEmail,
         fromName: booking.user.name || "Crenoz",
         attendeeName: booking.attendeeName,
         attendeeEmail: booking.attendeeEmail,
@@ -108,9 +122,13 @@ export async function POST(request: NextRequest) {
         timezone: booking.timezone,
         notes: booking.notes || undefined,
       });
+
+      if (!clientResult.success) {
+        console.error("❌ Échec envoi email au client:", clientResult.error);
+      }
     } catch (emailError) {
       // Ne pas faire échouer la création de réservation si l'email échoue
-      console.error("Erreur lors de l'envoi des emails:", emailError);
+      console.error("❌ Erreur lors de l'envoi des emails:", emailError);
     }
 
     return NextResponse.json(booking, { status: 201 });

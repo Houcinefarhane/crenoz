@@ -23,12 +23,14 @@ export async function sendBookingConfirmationToPro(
   params: SendBookingConfirmationParams
 ) {
   if (!process.env.RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY non configurée, email non envoyé");
+    console.warn("❌ RESEND_API_KEY non configurée, email non envoyé");
     return { success: false, error: "RESEND_API_KEY non configurée" };
   }
 
   try {
     const { to, from, fromName, attendeeName, attendeeEmail, eventName, startTime, endTime, timezone = "Europe/Paris", notes } = params;
+
+    console.log("📧 Envoi email au professionnel:", { to, from, fromName, eventName });
 
     const formattedDate = new Intl.DateTimeFormat("fr-FR", {
       weekday: "long",
@@ -89,13 +91,14 @@ export async function sendBookingConfirmationToPro(
     });
 
     if (error) {
-      console.error("Erreur Resend:", error);
+      console.error("❌ Erreur Resend (Pro):", JSON.stringify(error, null, 2));
       return { success: false, error };
     }
 
+    console.log("✅ Email envoyé au professionnel avec succès:", data);
     return { success: true, data };
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
+    console.error("❌ Erreur lors de l'envoi de l'email (Pro):", error);
     return { success: false, error };
   }
 }
@@ -107,12 +110,14 @@ export async function sendBookingConfirmationToClient(
   params: SendBookingConfirmationParams
 ) {
   if (!process.env.RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY non configurée, email non envoyé");
+    console.warn("❌ RESEND_API_KEY non configurée, email non envoyé");
     return { success: false, error: "RESEND_API_KEY non configurée" };
   }
 
   try {
     const { to, from, fromName, attendeeName, eventName, startTime, endTime, timezone = "Europe/Paris", notes } = params;
+
+    console.log("📧 Envoi email au client:", { to, from, fromName, eventName });
 
     const formattedDate = new Intl.DateTimeFormat("fr-FR", {
       weekday: "long",
@@ -178,13 +183,14 @@ export async function sendBookingConfirmationToClient(
     });
 
     if (error) {
-      console.error("Erreur Resend:", error);
+      console.error("❌ Erreur Resend (Client):", JSON.stringify(error, null, 2));
       return { success: false, error };
     }
 
+    console.log("✅ Email envoyé au client avec succès:", data);
     return { success: true, data };
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
+    console.error("❌ Erreur lors de l'envoi de l'email (Client):", error);
     return { success: false, error };
   }
 }
