@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-effect border-b border-white/20 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +32,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/login">
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30">
+                <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30">
                   Commencer
                 </Button>
               </Link>
@@ -55,7 +55,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl"
+            className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-300/20 rounded-full blur-3xl"
           />
           <motion.div
             animate={{
@@ -67,7 +67,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300/20 rounded-full blur-3xl"
+            className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-300/20 rounded-full blur-3xl"
           />
         </div>
 
@@ -82,10 +82,10 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200/50 mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200/50 mb-8"
             >
-              <Sparkles className="h-4 w-4 text-purple-600" />
-              <span className="text-sm font-medium text-purple-700">
+              <Sparkles className="h-4 w-4 text-emerald-600" />
+              <span className="text-sm font-medium text-emerald-700">
                 La solution moderne de prise de rendez-vous
               </span>
             </motion.div>
@@ -121,7 +121,7 @@ export default function Home() {
               <Link href="/login">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg font-semibold shadow-xl shadow-purple-500/30 group relative overflow-hidden"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-8 py-6 text-lg font-semibold shadow-xl shadow-emerald-500/30 group relative overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center">
                     Commencer gratuitement
@@ -133,7 +133,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="px-8 py-6 text-lg font-semibold border-2 border-gray-300 hover:border-purple-300 hover:bg-purple-50/50 transition-all"
+                className="px-8 py-6 text-lg font-semibold border-2 border-gray-300 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all"
               >
                 Voir une démo
               </Button>
@@ -148,13 +148,13 @@ export default function Home() {
             className="mt-20 relative"
           >
             <div className="relative glass-effect rounded-3xl shadow-2xl p-8 border border-white/20">
-              <div className="aspect-video bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
+              <div className="aspect-video bg-gradient-to-br from-emerald-100 via-teal-100 to-green-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-                <Calendar className="h-32 w-32 text-purple-600 opacity-30 relative z-10" />
+                <Calendar className="h-32 w-32 text-emerald-600 opacity-30 relative z-10" />
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute top-4 right-4 w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full"
+                  className="absolute top-4 right-4 w-16 h-16 border-4 border-emerald-200 border-t-emerald-600 rounded-full"
                 />
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function Home() {
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
+              className="absolute -top-6 -right-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
             >
               <Clock className="h-6 w-6" />
             </motion.div>
@@ -171,7 +171,7 @@ export default function Home() {
             <motion.div
               animate={{ y: [0, 15, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -bottom-6 -left-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
+              className="absolute -bottom-6 -left-6 bg-gradient-to-r from-teal-500 to-emerald-500 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
             >
               <Zap className="h-6 w-6" />
             </motion.div>
@@ -225,7 +225,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <motion.div
@@ -237,14 +237,14 @@ export default function Home() {
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
               Prêt à commencer ?
             </h2>
-            <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto font-light">
+            <p className="text-xl text-emerald-50 mb-8 max-w-2xl mx-auto font-light">
               Rejoignez des milliers de professionnels qui font confiance à
               Crenoz pour gérer leurs rendez-vous.
             </p>
             <Link href="/login">
               <Button
                 size="lg"
-                className="bg-white text-purple-600 hover:bg-gray-50 px-8 py-6 text-lg font-semibold shadow-xl hover:scale-105 transition-transform"
+                className="bg-white text-emerald-600 hover:bg-gray-50 px-8 py-6 text-lg font-semibold shadow-xl hover:scale-105 transition-transform"
               >
                 Créer un compte gratuit
                 <ArrowRight className="ml-2 h-5 w-5" />

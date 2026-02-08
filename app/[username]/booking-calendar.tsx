@@ -71,7 +71,7 @@ export function BookingCalendar({
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(subWeeks(currentWeek, 1))}
-          className="border-2 hover:border-purple-300 hover:bg-purple-50/50"
+          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -83,7 +83,7 @@ export function BookingCalendar({
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(addWeeks(currentWeek, 1))}
-          className="border-2 hover:border-purple-300 hover:bg-purple-50/50"
+          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -106,9 +106,9 @@ export function BookingCalendar({
                 p-3 rounded-xl border-2 transition-all text-center font-medium
                 ${
                   isSelected
-                    ? "border-purple-600 bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg"
+                    ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
                     : slots.length > 0 && !isPast
-                    ? "border-gray-200 hover:border-purple-300 hover:bg-purple-50/50 hover:shadow-md"
+                    ? "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
                     : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
                 }
               `}
@@ -118,7 +118,7 @@ export function BookingCalendar({
               </div>
               <div
                 className={`text-lg font-semibold ${
-                  isToday ? "text-purple-600" : "text-gray-900"
+                  isToday ? "text-emerald-600" : "text-gray-900"
                 }`}
               >
                 {format(day, "d")}
@@ -148,8 +148,8 @@ export function BookingCalendar({
                   px-4 py-2 rounded-xl border-2 transition-all text-sm font-semibold
                   ${
                     selectedTime === time
-                      ? "border-purple-600 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                      : "border-gray-200 hover:border-purple-300 hover:bg-purple-50/50 hover:shadow-md"
+                      ? "border-emerald-500 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
+                      : "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
                   }
                 `}
               >

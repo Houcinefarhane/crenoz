@@ -165,7 +165,7 @@ export default function BookingPage() {
                 setSelectedDate(null);
                 setSelectedTime(null);
               }}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30"
             >
               Nouvelle réservation
             </Button>
@@ -175,7 +175,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-teal-50/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -210,8 +210,8 @@ export default function BookingPage() {
                       }}
                       className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                         selectedEventType?.id === eventType.id
-                          ? "border-purple-600 bg-gradient-to-r from-purple-50 to-pink-50 shadow-lg"
-                          : "border-gray-200 hover:border-purple-300 hover:bg-purple-50/50"
+                          ? "border-emerald-500 bg-gradient-to-r from-emerald-50 to-teal-50 shadow-lg"
+                          : "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50"
                       }`}
                     >
                       <div className="flex items-start justify-between">
@@ -313,7 +313,7 @@ export default function BookingPage() {
 
                         <Button
                           type="submit"
-                          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30 font-semibold"
+                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30 font-semibold"
                           disabled={submitting}
                         >
                           {submitting ? "Réservation en cours..." : "Confirmer la réservation"}

@@ -102,7 +102,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-teal-50/20">
       {/* Header */}
       <div className="glass-effect border-b border-white/20 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -146,8 +146,8 @@ export function DashboardClient({ user }: DashboardClientProps) {
               onClick={() => setShowAvailability(false)}
               className={`pb-4 px-4 font-semibold transition-colors ${
                 !showAvailability
-                  ? "text-purple-600 border-b-2 border-purple-600"
-                  : "text-gray-600 hover:text-purple-600"
+                  ? "text-emerald-600 border-b-2 border-emerald-600"
+                  : "text-gray-600 hover:text-emerald-600"
               }`}
             >
               Types de RDV
@@ -156,8 +156,8 @@ export function DashboardClient({ user }: DashboardClientProps) {
               onClick={() => setShowAvailability(true)}
               className={`pb-4 px-4 font-semibold transition-colors ${
                 showAvailability
-                  ? "text-purple-600 border-b-2 border-purple-600"
-                  : "text-gray-600 hover:text-purple-600"
+                  ? "text-emerald-600 border-b-2 border-emerald-600"
+                  : "text-gray-600 hover:text-emerald-600"
               }`}
             >
               Disponibilités
@@ -176,7 +176,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                   </p>
                 </div>
                 <Button
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30"
                   onClick={() => {
                     setEditingEventType(null);
                     setShowDialog(true);
@@ -193,12 +193,12 @@ export function DashboardClient({ user }: DashboardClientProps) {
                 </div>
               ) : eventTypes.length === 0 ? (
                 <div className="text-center py-12 glass-effect rounded-2xl border border-white/20">
-                  <Calendar className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+                  <Calendar className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
                   <p className="text-gray-600 mb-4 font-medium">
                     Aucun type de rendez-vous créé
                   </p>
                   <Button
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/30"
+                    className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30"
                     onClick={() => {
                       setEditingEventType(null);
                       setShowDialog(true);
@@ -216,11 +216,11 @@ export function DashboardClient({ user }: DashboardClientProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass-effect rounded-2xl border border-white/20 p-6 hover:border-purple-200/50 transition-all group"
+                  className="glass-effect rounded-2xl border border-white/20 p-6 hover:border-emerald-200/50 transition-all group"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Calendar className="h-7 w-7 text-purple-600" />
+                    <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Calendar className="h-7 w-7 text-emerald-600" />
                     </div>
                         <div className="flex gap-2">
                           <Button

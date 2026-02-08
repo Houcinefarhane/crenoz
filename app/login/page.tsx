@@ -73,7 +73,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30 flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30 flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -86,7 +86,7 @@ export default function LoginPage() {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute top-20 right-20 w-64 h-64 bg-purple-300/20 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-64 h-64 bg-emerald-300/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -98,7 +98,7 @@ export default function LoginPage() {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute bottom-20 left-20 w-64 h-64 bg-pink-300/20 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-64 h-64 bg-teal-300/20 rounded-full blur-3xl"
         />
       </div>
 
@@ -119,7 +119,7 @@ export default function LoginPage() {
               </motion.h1>
             </Link>
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-purple-600" />
+              <Sparkles className="h-4 w-4 text-emerald-600" />
               <p className="text-gray-600 font-medium">
                 {isLogin ? "Connectez-vous à votre compte" : "Créez votre compte"}
               </p>
@@ -141,7 +141,7 @@ export default function LoginPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
+                    className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white/50"
                     placeholder="Votre nom"
                     required={!isLogin}
                   />
@@ -163,7 +163,7 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
+                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white/50"
                   placeholder="votre@email.com"
                   required
                 />
@@ -184,7 +184,7 @@ export default function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all bg-white/50"
+                  className="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white/50"
                   placeholder="••••••••"
                   required
                 />
@@ -208,7 +208,7 @@ export default function LoginPage() {
             >
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-6 text-lg font-semibold shadow-lg shadow-purple-500/30 relative overflow-hidden group"
+                className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-6 text-lg font-semibold shadow-lg shadow-emerald-500/30 relative overflow-hidden group"
                 disabled={loading}
               >
                 <span className="relative z-10 flex items-center justify-center">
@@ -232,7 +232,7 @@ export default function LoginPage() {
                 setIsLogin(!isLogin);
                 setError("");
               }}
-              className="text-sm text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+              className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold transition-colors"
             >
               {isLogin
                 ? "Pas encore de compte ? Créez-en un"
