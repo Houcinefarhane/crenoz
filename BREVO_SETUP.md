@@ -25,19 +25,24 @@
 
 ### 3. Configurer les variables d'environnement
 
+**⚠️ IMPORTANT** : Google/Yahoo/Microsoft exigent maintenant DKIM/DMARC. Vous devez utiliser un email expéditeur vérifié dans Brevo.
+
 **Localement (.env) :**
 ```env
 BREVO_API_KEY=xkeysib-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-BREVO_FROM_EMAIL=noreply@crenoz.app
+BREVO_FROM_EMAIL=noreply@sendinblue.com
 ```
 
 **Dans Vercel :**
 1. Allez dans **Settings** → **Environment Variables**
 2. Ajoutez `BREVO_API_KEY` avec votre clé API
-3. (Optionnel) Ajoutez `BREVO_FROM_EMAIL` avec votre email expéditeur
-   - Si non défini, utilise l'email de l'utilisateur professionnel
+3. **Ajoutez `BREVO_FROM_EMAIL`** avec un email vérifié dans Brevo :
+   - Option 1 : Utilisez l'email par défaut de Brevo (`noreply@sendinblue.com`)
+   - Option 2 : Vérifiez votre propre email dans Brevo (voir `BREVO_VERIFY_SENDER.md`)
 4. Cochez : ✅ Production, ✅ Preview, ✅ Development
 5. **Redéployez** votre application
+
+**Note** : Si `BREVO_FROM_EMAIL` n'est pas défini, le code utilisera `noreply@sendinblue.com` par défaut.
 
 ## 📨 Emails envoyés
 

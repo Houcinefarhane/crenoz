@@ -88,10 +88,13 @@ export async function POST(request: NextRequest) {
         console.log("✅ BREVO_API_KEY configurée:", process.env.BREVO_API_KEY.substring(0, 10) + "...");
       }
 
-      // Brevo permet d'utiliser n'importe quel email expéditeur (pas besoin de vérifier le domaine)
-      const fromEmail = process.env.BREVO_FROM_EMAIL || booking.user.email || "noreply@crenoz.app";
+      // IMPORTANT: Brevo exige maintenant DKIM/DMARC pour les expéditeurs
+      // Utilisez un email vérifié dans Brevo (Settings → Senders & IP)
+      // Par défaut, utilisez l'email par défaut de Brevo ou un email vérifié
+      const fromEmail = process.env.BREVO_FROM_EMAIL || "noreply@sendinblue.com";
       console.log("📧 Email expéditeur configuré:", fromEmail);
-      console.log("📧 BREVO_FROM_EMAIL env var:", process.env.BREVO_FROM_EMAIL || "non défini (utilise email utilisateur)");
+      console.log("📧 BREVO_FROM_EMAIL env var:", process.env.BREVO_FROM_EMAIL || "non défini (utilise défaut Brevo)");
+      console.log("⚠️ Assurez-vous que cet email est vérifié dans Brevo (Settings → Senders & IP)");
 
       // Email au professionnel
       const proResult = await sendBookingConfirmationToPro({
