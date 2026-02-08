@@ -109,7 +109,16 @@ Si les emails ne fonctionnent toujours pas, fournissez :
 
 ## 🎯 Solution rapide
 
-Si rien ne fonctionne, essayez cette configuration minimale :
+### Problème : "You can only send testing emails to your own email address"
+
+**Cause** : Resend en mode test ne permet d'envoyer qu'à l'email du compte.
+
+**Solutions** :
+
+1. **Pour la production** : Vérifiez un domaine dans Resend (voir `RESEND_VERIFY_DOMAIN.md`)
+2. **Pour les tests** : Utilisez temporairement `houcinefarhane138@gmail.com` comme email de destination
+
+### Configuration minimale pour tests
 
 1. Dans Vercel → Environment Variables :
    ```
@@ -119,6 +128,6 @@ Si rien ne fonctionne, essayez cette configuration minimale :
 
 2. Redéployez
 
-3. Créez une réservation de test
+3. Créez une réservation de test avec `houcinefarhane138@gmail.com` comme email
 
 4. Vérifiez les logs Vercel et Resend
