@@ -30,7 +30,13 @@ export async function sendBookingConfirmationToPro(
   try {
     const { to, from, fromName, attendeeName, attendeeEmail, eventName, startTime, endTime, timezone = "Europe/Paris", notes } = params;
 
-    console.log("📧 Envoi email au professionnel:", { to, from, fromName, eventName });
+    console.log("📧 Envoi email au professionnel:", { 
+      to, 
+      from, 
+      fromName, 
+      eventName,
+      subject: `Nouvelle réservation : ${eventName}`
+    });
 
     const formattedDate = new Intl.DateTimeFormat("fr-FR", {
       weekday: "long",
@@ -52,8 +58,17 @@ export async function sendBookingConfirmationToPro(
       timeZone: timezone,
     }).format(endTime);
 
+    // Formater l'email expéditeur correctement
+    const fromFormatted = fromName ? `${fromName} <${from}>` : from;
+    
+    console.log("📤 Requête Resend (Pro):", {
+      from: fromFormatted,
+      to: [to],
+      subject: `Nouvelle réservation : ${eventName}`
+    });
+
     const { data, error } = await resend.emails.send({
-      from: `${fromName} <${from}>`, // Personnalisé par utilisateur
+      from: fromFormatted,
       to: [to], // Email du professionnel
       subject: `Nouvelle réservation : ${eventName}`,
       html: `
@@ -117,7 +132,13 @@ export async function sendBookingConfirmationToClient(
   try {
     const { to, from, fromName, attendeeName, eventName, startTime, endTime, timezone = "Europe/Paris", notes } = params;
 
-    console.log("📧 Envoi email au client:", { to, from, fromName, eventName });
+    console.log("📧 Envoi email au client:", { 
+      to, 
+      from, 
+      fromName, 
+      eventName,
+      subject: `Confirmation de votre réservation : ${eventName}`
+    });
 
     const formattedDate = new Intl.DateTimeFormat("fr-FR", {
       weekday: "long",
@@ -139,8 +160,17 @@ export async function sendBookingConfirmationToClient(
       timeZone: timezone,
     }).format(endTime);
 
+    // Formater l'email expéditeur correctement
+    const fromFormatted = fromName ? `${fromName} <${from}>` : from;
+    
+    console.log("📤 Requête Resend (Client):", {
+      from: fromFormatted,
+      to: [to],
+      subject: `Confirmation de votre réservation : ${eventName}`
+    });
+
     const { data, error } = await resend.emails.send({
-      from: `${fromName} <${from}>`, // Email personnalisé du professionnel
+      from: fromFormatted,
       to: [to], // Email du client
       subject: `Confirmation de votre réservation : ${eventName}`,
       html: `

@@ -85,13 +85,14 @@ export async function POST(request: NextRequest) {
       if (!process.env.RESEND_API_KEY) {
         console.warn("⚠️ RESEND_API_KEY non configurée - les emails ne seront pas envoyés");
       } else {
-        console.log("✅ RESEND_API_KEY configurée");
+        console.log("✅ RESEND_API_KEY configurée:", process.env.RESEND_API_KEY.substring(0, 10) + "...");
       }
 
       // Utiliser onboarding@resend.dev par défaut (domaine vérifié Resend pour tests)
       // Pour production, vérifiez votre propre domaine dans Resend
       const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-      console.log("📧 Email expéditeur:", fromEmail);
+      console.log("📧 Email expéditeur configuré:", fromEmail);
+      console.log("📧 RESEND_FROM_EMAIL env var:", process.env.RESEND_FROM_EMAIL || "non défini (utilise défaut)");
 
       // Email au professionnel
       const proResult = await sendBookingConfirmationToPro({
