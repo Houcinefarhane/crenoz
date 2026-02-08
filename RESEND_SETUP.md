@@ -22,6 +22,8 @@
 3. Donnez un nom (ex: "Crenoz Production")
 4. Copiez la clé API (commence par `re_...`)
 
+**Important** : Pour les tests, vous pouvez utiliser le domaine par défaut `onboarding@resend.dev` sans vérification. Pour la production, vous devrez vérifier votre propre domaine.
+
 ### 3. Configurer les variables d'environnement
 
 Ajoutez dans votre fichier `.env` :
@@ -31,15 +33,17 @@ Ajoutez dans votre fichier `.env` :
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxx
 
 # Email expéditeur par défaut (optionnel)
-# Si non défini, utilise "noreply@crenoz.app"
-RESEND_FROM_EMAIL=noreply@votre-domaine.com
+# Si non défini, utilise "onboarding@resend.dev" (domaine de test Resend)
+# Pour production, vérifiez votre domaine dans Resend et utilisez votre email
+RESEND_FROM_EMAIL=onboarding@resend.dev
 ```
 
 ### 4. Pour Vercel
 
 1. Allez dans **Settings** → **Environment Variables**
 2. Ajoutez `RESEND_API_KEY` avec votre clé API
-3. (Optionnel) Ajoutez `RESEND_FROM_EMAIL` avec votre email d'expéditeur
+3. **Important** : Ajoutez `RESEND_FROM_EMAIL=onboarding@resend.dev` (domaine de test vérifié)
+   - Pour la production, vérifiez votre propre domaine dans Resend et utilisez votre email
 4. Cochez : ✅ Production, ✅ Preview, ✅ Development
 5. Redéployez votre application
 

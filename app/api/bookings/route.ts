@@ -88,7 +88,9 @@ export async function POST(request: NextRequest) {
         console.log("✅ RESEND_API_KEY configurée");
       }
 
-      const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"; // Utiliser le domaine par défaut Resend
+      // Utiliser onboarding@resend.dev par défaut (domaine vérifié Resend pour tests)
+      // Pour production, vérifiez votre propre domaine dans Resend
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
       console.log("📧 Email expéditeur:", fromEmail);
 
       // Email au professionnel
