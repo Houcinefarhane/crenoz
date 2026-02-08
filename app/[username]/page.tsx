@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Mail, Check } from "lucide-react";
+import { Calendar, Clock, User, Mail, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BookingCalendar } from "./booking-calendar";
@@ -154,27 +154,35 @@ export default function BookingPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-md text-center"
+          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-md text-center relative"
         >
+          {/* Bouton fermer (croix) */}
+          <button
+            onClick={() => {
+              setSuccess(false);
+              setSelectedDate(null);
+              setSelectedTime(null);
+            }}
+            className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            aria-label="Fermer"
+          >
+            <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+          </button>
+
           <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold mb-2">
             <span className="gradient-text">Réservation confirmée !</span>
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-4">
             Vous recevrez un email de confirmation sous peu.
           </p>
-            <Button
-              onClick={() => {
-                setSuccess(false);
-                setSelectedDate(null);
-                setSelectedTime(null);
-              }}
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30"
-            >
-              Nouvelle réservation
-            </Button>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
+            <p className="text-sm text-amber-800">
+              <strong>💡 Astuce :</strong> Vérifiez votre dossier <strong>spam</strong> si vous ne recevez pas l&apos;email dans les prochaines minutes.
+            </p>
+          </div>
         </motion.div>
       </div>
     );
