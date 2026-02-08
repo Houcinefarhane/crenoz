@@ -81,18 +81,17 @@ export async function POST(request: NextRequest) {
     try {
       const { sendBookingConfirmationToPro, sendBookingConfirmationToClient } = await import("@/lib/email");
       
-      // Vérifier la configuration Resend
-      if (!process.env.RESEND_API_KEY) {
-        console.warn("⚠️ RESEND_API_KEY non configurée - les emails ne seront pas envoyés");
+      // Vérifier la configuration Brevo
+      if (!process.env.BREVO_API_KEY) {
+        console.warn("⚠️ BREVO_API_KEY non configurée - les emails ne seront pas envoyés");
       } else {
-        console.log("✅ RESEND_API_KEY configurée:", process.env.RESEND_API_KEY.substring(0, 10) + "...");
+        console.log("✅ BREVO_API_KEY configurée:", process.env.BREVO_API_KEY.substring(0, 10) + "...");
       }
 
-      // Utiliser onboarding@resend.dev par défaut (domaine vérifié Resend pour tests)
-      // Pour production, vérifiez votre propre domaine dans Resend
-      const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+      // Brevo permet d'utiliser n'importe quel email expéditeur (pas besoin de vérifier le domaine)
+      const fromEmail = process.env.BREVO_FROM_EMAIL || booking.user.email || "noreply@crenoz.app";
       console.log("📧 Email expéditeur configuré:", fromEmail);
-      console.log("📧 RESEND_FROM_EMAIL env var:", process.env.RESEND_FROM_EMAIL || "non défini (utilise défaut)");
+      console.log("📧 BREVO_FROM_EMAIL env var:", process.env.BREVO_FROM_EMAIL || "non défini (utilise email utilisateur)");
 
       // Email au professionnel
       const proResult = await sendBookingConfirmationToPro({
