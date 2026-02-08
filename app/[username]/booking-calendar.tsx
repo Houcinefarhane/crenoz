@@ -18,6 +18,11 @@ interface Availability {
   breaks?: Break[];
 }
 
+interface Booking {
+  startTime: string; // ISO string
+  endTime: string; // ISO string
+}
+
 interface BookingCalendarProps {
   availability: Availability[];
   duration: number;
@@ -25,6 +30,7 @@ interface BookingCalendarProps {
   selectedTime: string | null;
   onDateSelect: (date: Date) => void;
   onTimeSelect: (time: string | null) => void;
+  bookings?: Booking[];
 }
 
 export function BookingCalendar({
@@ -34,6 +40,7 @@ export function BookingCalendar({
   selectedTime,
   onDateSelect,
   onTimeSelect,
+  bookings = [],
 }: BookingCalendarProps) {
   const [currentWeek, setCurrentWeek] = useState(new Date());
 
@@ -54,12 +61,45 @@ export function BookingCalendar({
     today.setHours(0, 0, 0, 0);
     if (day < today) return [];
 
-    return generateTimeSlots(
+    // Générer tous les créneaux disponibles
+    const allSlots = generateTimeSlots(
       dayAvailability.startTime,
       dayAvailability.endTime,
       duration,
       dayAvailability.breaks || []
     );
+
+    // Filtrer les créneaux déjà réservés
+    const dayStart = new Date(day);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(day);
+    dayEnd.setHours(23, 59, 59, 999);
+
+    const availableSlots = allSlots.filter((slot) => {
+      // Créer la date/heure du créneau
+      const [hours, minutes] = slot.split(":").map(Number);
+      const slotStart = new Date(day);
+      slotStart.setHours(hours, minutes, 0, 0);
+      const slotEnd = new Date(slotStart);
+      slotEnd.setMinutes(slotEnd.getMinutes() + duration);
+
+      // Vérifier si ce créneau chevauche une réservation existante
+      const isReserved = bookings.some((booking) => {
+        const bookingStart = new Date(booking.startTime);
+        const bookingEnd = new Date(booking.endTime);
+
+        // Vérifier si le créneau chevauche la réservation
+        return (
+          (slotStart >= bookingStart && slotStart < bookingEnd) ||
+          (slotEnd > bookingStart && slotEnd <= bookingEnd) ||
+          (slotStart <= bookingStart && slotEnd >= bookingEnd)
+        );
+      });
+
+      return !isReserved;
+    });
+
+    return availableSlots;
   };
 
   const handleDateClick = (day: Date) => {

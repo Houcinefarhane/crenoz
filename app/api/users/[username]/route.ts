@@ -36,6 +36,21 @@ export async function GET(
       breaks: av.breaks ? JSON.parse(av.breaks) : [],
     }));
 
+    // Récupérer les réservations confirmées pour exclure les créneaux déjà réservés
+    const bookings = await prisma.booking.findMany({
+      where: {
+        userId: user.id,
+        status: "confirmed",
+        startTime: {
+          gte: new Date(), // Seulement les réservations futures
+        },
+      },
+      select: {
+        startTime: true,
+        endTime: true,
+      },
+    });
+
     return NextResponse.json({
       user: {
         id: user.id,
@@ -45,6 +60,10 @@ export async function GET(
       },
       eventTypes: user.eventTypes,
       availability: availabilityWithBreaks,
+      bookings: bookings.map((b) => ({
+        startTime: b.startTime.toISOString(),
+        endTime: b.endTime.toISOString(),
+      })),
     });
   } catch (error) {
     console.error("Erreur:", error);

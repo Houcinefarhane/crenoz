@@ -28,6 +28,10 @@ interface UserData {
     startTime: string;
     endTime: string;
   }>;
+  bookings: Array<{
+    startTime: string;
+    endTime: string;
+  }>;
 }
 
 export default function BookingPage() {
@@ -245,14 +249,15 @@ export default function BookingPage() {
                     <h2 className="text-xl font-semibold mb-4">
                       Sélectionnez une date et une heure
                     </h2>
-                    <BookingCalendar
-                      availability={data.availability}
-                      duration={selectedEventType.duration}
-                      selectedDate={selectedDate}
-                      selectedTime={selectedTime}
-                      onDateSelect={setSelectedDate}
-                      onTimeSelect={setSelectedTime}
-                    />
+                <BookingCalendar
+                  availability={data.availability}
+                  duration={selectedEventType.duration}
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                  onDateSelect={setSelectedDate}
+                  onTimeSelect={setSelectedTime}
+                  bookings={data.bookings || []}
+                />
                   </div>
 
                   {/* Formulaire */}
