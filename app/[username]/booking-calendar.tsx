@@ -66,90 +66,149 @@ export function BookingCalendar({
   return (
     <div>
       {/* Navigation semaine */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <Button
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(subWeeks(currentWeek, 1))}
-          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50"
+          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50 flex-shrink-0"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
-        <h3 className="text-lg font-semibold text-gray-900">
-          {format(weekStart, "d MMMM")} -{" "}
-          {format(addDays(weekStart, 6), "d MMMM yyyy")}
+        <h3 className="text-sm sm:text-lg font-semibold text-gray-900 text-center px-2">
+          <span className="hidden sm:inline">
+            {format(weekStart, "d MMMM")} -{" "}
+            {format(addDays(weekStart, 6), "d MMMM yyyy")}
+          </span>
+          <span className="sm:hidden">
+            {format(weekStart, "d MMM")} - {format(addDays(weekStart, 6), "d MMM")}
+          </span>
         </h3>
         <Button
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(addWeeks(currentWeek, 1))}
-          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50"
+          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50 flex-shrink-0"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
 
-      {/* Grille calendrier */}
-      <div className="grid grid-cols-7 gap-2 mb-6">
-        {weekDays.map((day, index) => {
-          const slots = getTimeSlotsForDay(day);
-          const isSelected = selectedDate && isSameDay(day, selectedDate);
-          const isToday = isSameDay(day, new Date());
-          const isPast = day < new Date() && !isToday;
+      {/* Grille calendrier - Scroll horizontal sur mobile */}
+      <div className="mb-4 sm:mb-6">
+        {/* Desktop: Grid normal */}
+        <div className="hidden sm:grid sm:grid-cols-7 gap-2">
+          {weekDays.map((day, index) => {
+            const slots = getTimeSlotsForDay(day);
+            const isSelected = selectedDate && isSameDay(day, selectedDate);
+            const isToday = isSameDay(day, new Date());
+            const isPast = day < new Date() && !isToday;
 
-          return (
-            <button
-              key={index}
-              onClick={() => handleDateClick(day)}
-              disabled={slots.length === 0 || isPast}
-              className={`
-                p-3 rounded-xl border-2 transition-all text-center font-medium
-                ${
-                  isSelected
-                    ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
-                    : slots.length > 0 && !isPast
-                    ? "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
-                    : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
-                }
-              `}
-            >
-              <div className="text-xs text-gray-500 mb-1">
-                {format(day, "EEE")}
-              </div>
-              <div
-                className={`text-lg font-semibold ${
-                  isToday ? "text-emerald-600" : "text-gray-900"
-                }`}
+            return (
+              <button
+                key={index}
+                onClick={() => handleDateClick(day)}
+                disabled={slots.length === 0 || isPast}
+                className={`
+                  p-3 rounded-xl border-2 transition-all text-center font-medium
+                  ${
+                    isSelected
+                      ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
+                      : slots.length > 0 && !isPast
+                      ? "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
+                      : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
+                  }
+                `}
               >
-                {format(day, "d")}
-              </div>
-              {slots.length > 0 && !isPast && (
-                <div className="text-xs text-gray-500 mt-1">
-                  {slots.length} créneau{slots.length > 1 ? "x" : ""}
+                <div className="text-xs text-gray-500 mb-1">
+                  {format(day, "EEE")}
                 </div>
-              )}
-            </button>
-          );
-        })}
+                <div
+                  className={`text-lg font-semibold ${
+                    isToday ? "text-emerald-600" : "text-gray-900"
+                  }`}
+                >
+                  {format(day, "d")}
+                </div>
+                {slots.length > 0 && !isPast && (
+                  <div className="text-xs text-gray-500 mt-1">
+                    {slots.length} créneau{slots.length > 1 ? "x" : ""}
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile: Scroll horizontal avec jours plus larges */}
+        <div className="sm:hidden overflow-x-auto -mx-4 px-4 pb-2">
+          <div className="flex gap-2 min-w-max">
+            {weekDays.map((day, index) => {
+              const slots = getTimeSlotsForDay(day);
+              const isSelected = selectedDate && isSameDay(day, selectedDate);
+              const isToday = isSameDay(day, new Date());
+              const isPast = day < new Date() && !isToday;
+
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleDateClick(day)}
+                  disabled={slots.length === 0 || isPast}
+                  className={`
+                    flex-shrink-0 w-20 p-3 rounded-xl border-2 transition-all text-center font-medium
+                    ${
+                      isSelected
+                        ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
+                        : slots.length > 0 && !isPast
+                        ? "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50"
+                        : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
+                    }
+                  `}
+                >
+                  <div className="text-[10px] uppercase text-gray-500 mb-1 font-medium">
+                    {format(day, "EEE")}
+                  </div>
+                  <div
+                    className={`text-xl font-bold ${
+                      isToday ? "text-emerald-600" : "text-gray-900"
+                    }`}
+                  >
+                    {format(day, "d")}
+                  </div>
+                  {slots.length > 0 && !isPast && (
+                    <div className="text-[9px] text-emerald-600 mt-1 font-semibold">
+                      {slots.length}
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {/* Créneaux horaires */}
       {selectedDate && (
         <div>
-          <h4 className="font-semibold mb-3">
-            Créneaux disponibles le {format(selectedDate, "d MMMM yyyy")}
+          <h4 className="font-semibold mb-3 text-sm sm:text-base">
+            <span className="hidden sm:inline">
+              Créneaux disponibles le {format(selectedDate, "d MMMM yyyy")}
+            </span>
+            <span className="sm:hidden">
+              {format(selectedDate, "EEE d MMM")}
+            </span>
           </h4>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
             {getTimeSlotsForDay(selectedDate).map((time) => (
               <button
                 key={time}
                 onClick={() => onTimeSelect(time)}
                 className={`
-                  px-4 py-2 rounded-xl border-2 transition-all text-sm font-semibold
+                  px-3 py-2.5 sm:px-4 sm:py-2 rounded-xl border-2 transition-all text-xs sm:text-sm font-semibold
                   ${
                     selectedTime === time
                       ? "border-emerald-500 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
-                      : "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
+                      : "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50 sm:hover:border-emerald-300 sm:hover:bg-emerald-50/50 sm:hover:shadow-md"
                   }
                 `}
               >
