@@ -12,14 +12,13 @@ import {
   Clock,
   Trash2,
   Edit,
-  Mail,
-  CalendarCheck,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { EventTypeDialog } from "./event-type-dialog";
 import { AvailabilityManager } from "./availability-manager";
 import { UsernameSettings } from "./username-settings";
+import { BookingsCalendar } from "./bookings-calendar";
 
 interface DashboardClientProps {
   user: {
@@ -201,118 +200,9 @@ export function DashboardClient({ user }: DashboardClientProps) {
             <UsernameSettings user={user} />
           </div>
 
-          {/* Prochains Rendez-vous */}
+          {/* Calendrier des Rendez-vous */}
           <div className="mb-10">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">
-                  Prochains rendez-vous
-                </h2>
-                <p className="text-gray-600 font-light">
-                  Vos réservations à venir
-                </p>
-              </div>
-            </div>
-
-            {bookingsLoading ? (
-              <div className="text-center py-8">
-                <div className="inline-block w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-2" />
-                <p className="text-gray-500 text-sm">Chargement...</p>
-              </div>
-            ) : bookings.length === 0 ? (
-              <div className="bg-gradient-to-br from-yellow-50/50 to-blue-50/50 rounded-2xl border-2 border-dashed border-yellow-200 p-8 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/25">
-                  <CalendarCheck className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  Aucun rendez-vous à venir
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Vos prochains rendez-vous apparaîtront ici
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {bookings.map((booking, index) => {
-                  const startDate = new Date(booking.startTime);
-                  const endDate = new Date(booking.endTime);
-                  const formattedDate = new Intl.DateTimeFormat("fr-FR", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  }).format(startDate);
-                  const formattedStartTime = new Intl.DateTimeFormat("fr-FR", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  }).format(startDate);
-                  const formattedEndTime = new Intl.DateTimeFormat("fr-FR", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  }).format(endDate);
-
-                  return (
-                    <motion.div
-                      key={booking.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ y: -4, scale: 1.01 }}
-                      className="group relative bg-white rounded-xl border border-gray-200 p-5 hover:border-blue-300 hover:shadow-lg transition-all duration-300 overflow-hidden"
-                    >
-                      {/* Gradient overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/0 via-blue-50/0 to-cyan-50/0 group-hover:from-yellow-50/50 group-hover:via-blue-50/50 group-hover:to-cyan-50/50 transition-all duration-300" />
-                      
-                      <div className="relative z-10">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-yellow-500/25">
-                              <Calendar className="h-6 w-6 text-white" />
-                            </div>
-                            <div>
-                              <h3 className="font-bold text-gray-900 mb-1">
-                                {booking.eventType.name}
-                              </h3>
-                              <div className="flex items-center gap-2 text-sm text-gray-500">
-                                <Clock className="h-4 w-4" />
-                                <span>
-                                  {formattedStartTime} - {formattedEndTime}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          <div className="text-sm">
-                            <span className="text-gray-500">Date :</span>
-                            <span className="ml-2 font-medium text-gray-900 capitalize">
-                              {formattedDate}
-                            </span>
-                          </div>
-                          <div className="text-sm">
-                            <span className="text-gray-500">Client :</span>
-                            <span className="ml-2 font-medium text-gray-900">
-                              {booking.attendeeName}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm">
-                            <Mail className="h-4 w-4 text-gray-400" />
-                            <span className="text-gray-600">{booking.attendeeEmail}</span>
-                          </div>
-                          {booking.notes && (
-                            <div className="text-sm pt-2 border-t border-gray-100">
-                              <span className="text-gray-500">Notes :</span>
-                              <p className="mt-1 text-gray-700">{booking.notes}</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
+            <BookingsCalendar bookings={bookings} loading={bookingsLoading} />
           </div>
 
           {/* Tabs */}
