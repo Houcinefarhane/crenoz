@@ -118,7 +118,7 @@ export function BookingCalendar({
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(subWeeks(currentWeek, 1))}
-          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50 flex-shrink-0"
+          className="border-2 hover:border-blue-300 hover:bg-blue-50/50 flex-shrink-0"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -135,7 +135,7 @@ export function BookingCalendar({
           variant="outline"
           size="sm"
           onClick={() => setCurrentWeek(addWeeks(currentWeek, 1))}
-          className="border-2 hover:border-emerald-300 hover:bg-emerald-50/50 flex-shrink-0"
+          className="border-2 hover:border-blue-300 hover:bg-blue-50/50 flex-shrink-0"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -160,9 +160,9 @@ export function BookingCalendar({
                   p-3 rounded-xl border-2 transition-all text-center font-medium
                   ${
                     isSelected
-                      ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
+                      ? "border-blue-500 bg-gradient-to-br from-yellow-50 to-blue-50 shadow-lg"
                       : slots.length > 0 && !isPast
-                      ? "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:shadow-md"
+                      ? "border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md"
                       : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
                   }
                 `}
@@ -172,7 +172,7 @@ export function BookingCalendar({
                 </div>
                 <div
                   className={`text-lg font-semibold ${
-                    isToday ? "text-emerald-600" : "text-gray-900"
+                    isToday ? "text-blue-600" : "text-gray-900"
                   }`}
                 >
                   {format(day, "d")}
@@ -204,9 +204,9 @@ export function BookingCalendar({
                   p-2 rounded-lg border-2 transition-all text-center font-medium
                   ${
                     isSelected
-                      ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg"
+                      ? "border-blue-500 bg-gradient-to-br from-yellow-50 to-blue-50 shadow-lg"
                       : slots.length > 0 && !isPast
-                      ? "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50"
+                      ? "border-gray-200 active:border-blue-300 active:bg-blue-50/50"
                       : "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
                   }
                 `}
@@ -216,13 +216,13 @@ export function BookingCalendar({
                 </div>
                 <div
                   className={`text-base font-bold leading-tight ${
-                    isToday ? "text-emerald-600" : "text-gray-900"
+                    isToday ? "text-blue-600" : "text-gray-900"
                   }`}
                 >
                   {format(day, "d")}
                 </div>
                 {slots.length > 0 && !isPast && (
-                  <div className="text-[8px] text-emerald-600 mt-0.5 font-semibold">
+                  <div className="text-[8px] text-blue-600 mt-0.5 font-semibold">
                     {slots.length}
                   </div>
                 )}
@@ -252,8 +252,8 @@ export function BookingCalendar({
                   px-3 py-2.5 sm:px-4 sm:py-2 rounded-xl border-2 transition-all text-xs sm:text-sm font-semibold
                   ${
                     selectedTime === time
-                      ? "border-emerald-500 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
-                      : "border-gray-200 active:border-emerald-300 active:bg-emerald-50/50 sm:hover:border-emerald-300 sm:hover:bg-emerald-50/50 sm:hover:shadow-md"
+                      ? "border-blue-500 bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 text-white shadow-lg"
+                      : "border-gray-200 active:border-blue-300 active:bg-blue-50/50 sm:hover:border-blue-300 sm:hover:bg-blue-50/50 sm:hover:shadow-md"
                   }
                 `}
               >

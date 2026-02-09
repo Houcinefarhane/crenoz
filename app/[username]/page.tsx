@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Mail, Check, X } from "lucide-react";
+import { Calendar, Clock, User, Mail, Check, X, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BookingCalendar } from "./booking-calendar";
@@ -162,6 +162,7 @@ export default function BookingPage() {
               setSuccess(false);
               setSelectedDate(null);
               setSelectedTime(null);
+              fetchUserData(); // Reload data to update available slots
             }}
             className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
             aria-label="Fermer"
@@ -169,18 +170,19 @@ export default function BookingPage() {
             <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
           </button>
 
-          <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Check className="h-8 w-8 text-green-600" />
+          <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Check className="h-8 w-8 text-blue-600" />
           </div>
           <h2 className="text-2xl font-bold mb-2">
-            <span className="gradient-text">Réservation confirmée !</span>
+            <span className="bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">Réservation confirmée !</span>
           </h2>
           <p className="text-gray-600 mb-4">
             Vous recevrez un email de confirmation sous peu.
           </p>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
-            <p className="text-sm text-amber-800">
-              <strong>💡 Astuce :</strong> Vérifiez votre dossier <strong>spam</strong> si vous ne recevez pas l&apos;email dans les prochaines minutes.
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800">
+            <p className="flex items-center justify-center gap-2">
+              <Lightbulb className="h-4 w-4" />
+              <span>Astuce : Vérifiez votre dossier spam si vous ne recevez pas l&apos;email dans les prochaines minutes.</span>
             </p>
           </div>
         </motion.div>
@@ -189,19 +191,23 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-teal-50/20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Background */}
+      <div className="fixed inset-0 bg-mesh-gradient opacity-20 pointer-events-none" />
+      <div className="fixed inset-0 bg-dot-pattern opacity-10 pointer-events-none" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="max-w-6xl mx-auto"
         >
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">
-              <span className="gradient-text">Réservez</span> un rendez-vous
+          <div className="text-center mb-10">
+            <h1 className="text-4xl sm:text-5xl font-extrabold mb-3">
+              <span className="bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">Réservez</span> un rendez-vous
               <br />
-              <span className="text-gray-900">avec {data.user.name || username}</span>
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">avec {data.user.name || username}</span>
             </h1>
             <p className="text-gray-600 text-lg font-light">
               Sélectionnez un type de rendez-vous et un créneau disponible
@@ -211,12 +217,14 @@ export default function BookingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Colonne gauche : Types de RDV */}
             <div className="lg:col-span-1">
-              <div className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6 sticky top-8">
-                <h2 className="text-xl font-semibold mb-4">Type de rendez-vous</h2>
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 sticky top-8">
+                <h2 className="text-xl font-bold mb-4 text-gray-900">Type de rendez-vous</h2>
                 <div className="space-y-3">
                   {data.eventTypes.map((eventType) => (
-                    <button
+                    <motion.button
                       key={eventType.id}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => {
                         setSelectedEventType(eventType);
                         setSelectedDate(null);
@@ -224,13 +232,13 @@ export default function BookingPage() {
                       }}
                       className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                         selectedEventType?.id === eventType.id
-                          ? "border-emerald-500 bg-gradient-to-r from-emerald-50 to-teal-50 shadow-lg"
-                          : "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50"
+                          ? "border-blue-500 bg-gradient-to-r from-yellow-50 to-blue-50 shadow-lg"
+                          : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/50"
                       }`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-bold text-gray-900">
                             {eventType.name}
                           </h3>
                           {eventType.description && (
@@ -244,7 +252,7 @@ export default function BookingPage() {
                           </div>
                         </div>
                       </div>
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -255,8 +263,8 @@ export default function BookingPage() {
               {selectedEventType && (
                 <div className="space-y-6">
                   {/* Calendrier */}
-                  <div className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6">
-                    <h2 className="text-xl font-semibold mb-4">
+                  <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
+                    <h2 className="text-xl font-bold mb-4 text-gray-900">
                       Sélectionnez une date et une heure
                     </h2>
                 <BookingCalendar
@@ -275,9 +283,9 @@ export default function BookingPage() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="glass-effect rounded-2xl shadow-xl border border-white/20 p-6"
+                      className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6"
                     >
-                      <h2 className="text-xl font-semibold mb-4">
+                      <h2 className="text-xl font-bold mb-4 text-gray-900">
                         Vos informations
                       </h2>
                       <form onSubmit={handleSubmit} className="space-y-4">
@@ -328,7 +336,7 @@ export default function BookingPage() {
 
                         <Button
                           type="submit"
-                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30 font-semibold"
+                          className="w-full bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 hover:from-yellow-500 hover:via-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-yellow-500/30 font-semibold transition-all duration-300"
                           disabled={submitting}
                         >
                           {submitting ? "Réservation en cours..." : "Confirmer la réservation"}
