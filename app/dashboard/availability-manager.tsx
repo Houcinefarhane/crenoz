@@ -149,7 +149,7 @@ export function AvailabilityManager({
         <Button
           onClick={saveAll}
           disabled={saving}
-          className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30"
+          className="bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 hover:from-yellow-500 hover:via-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-yellow-500/30"
         >
           <Save className="mr-2 h-4 w-4" />
           {saving ? "Sauvegarde..." : "Enregistrer"}

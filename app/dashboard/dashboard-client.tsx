@@ -254,7 +254,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
 
               {loading ? (
                 <div className="text-center py-20">
-                  <div className="inline-block w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-4" />
+                  <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
                   <p className="text-gray-500">Chargement...</p>
                 </div>
               ) : eventTypes.length === 0 ? (
@@ -346,7 +346,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                       </div>
                       
                       {/* Decorative corner */}
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-500/5 via-blue-500/5 to-cyan-500/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </motion.div>
                   ))}
                 </div>
