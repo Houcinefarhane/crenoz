@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, CheckCircle2, Play, Sparkles, Zap, Clock, Users, TrendingUp, Star } from "lucide-react";
+import { ArrowRight, Calendar, CheckCircle2, Play, Sparkles, Zap, Clock, Users, TrendingUp, Star, Bell, CalendarCheck, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -233,6 +233,139 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+
+              {/* Floating Widgets */}
+              {/* Widget 1 - Notifications */}
+              <motion.div
+                initial={{ opacity: 0, x: -30, y: -30 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
+                whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
+                className="absolute -top-6 -left-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-lg">
+                  <Bell className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 font-medium">Notifications</div>
+                  <div className="text-lg font-bold text-gray-900">3 nouvelles</div>
+                </div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center">
+                  <span className="text-xs text-white font-bold">3</span>
+                </div>
+              </motion.div>
+
+              {/* Widget 2 - Rendez-vous confirmés */}
+              <motion.div
+                initial={{ opacity: 0, x: 30, y: -30 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.1 }}
+                whileHover={{ scale: 1.1, rotate: [0, 5, -5, 5, 0] }}
+                className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                  <CalendarCheck className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 font-medium">Aujourd&apos;hui</div>
+                  <div className="text-lg font-bold text-gray-900">5 RDV</div>
+                </div>
+              </motion.div>
+
+              {/* Widget 3 - Messages */}
+              <motion.div
+                initial={{ opacity: 0, x: -30, y: 30 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
+                className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                  <MessageSquare className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 font-medium">Messages</div>
+                  <div className="text-lg font-bold text-gray-900">12 non lus</div>
+                </div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                  <span className="text-xs text-white font-bold">12</span>
+                </div>
+              </motion.div>
+
+              {/* Widget 4 - Statistiques */}
+              <motion.div
+                initial={{ opacity: 0, x: 30, y: 30 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.3 }}
+                whileHover={{ scale: 1.1, rotate: [0, 5, -5, 5, 0] }}
+                className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex flex-col z-10"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center">
+                    <TrendingUp className="h-4 w-4 text-white" />
+                  </div>
+                  <div className="text-xs text-gray-500 font-medium">Ce mois</div>
+                </div>
+                <div className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-blue-600 bg-clip-text text-transparent">
+                  +42%
+                </div>
+                <div className="text-xs text-gray-500">de réservations</div>
+              </motion.div>
+
+              {/* Widget 5 - Temps économisé (floating) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: [0, -15, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 1.4 },
+                  scale: { duration: 0.6, delay: 1.4 },
+                  y: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                whileHover={{ scale: 1.15 }}
+                className="absolute top-1/4 -right-12 bg-white rounded-xl shadow-lg border-2 border-gray-100 p-3 hidden lg:flex flex-col items-center z-10"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center mb-2 shadow-md">
+                  <Clock className="h-5 w-5 text-white" />
+                </div>
+                <div className="text-sm font-bold text-gray-900">2h</div>
+                <div className="text-xs text-gray-500 text-center">économisées</div>
+              </motion.div>
+
+              {/* Widget 6 - Satisfaction (floating) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: [0, 15, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 1.5 },
+                  scale: { duration: 0.6, delay: 1.5 },
+                  y: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  },
+                }}
+                whileHover={{ scale: 1.15 }}
+                className="absolute bottom-1/4 -left-12 bg-white rounded-xl shadow-lg border-2 border-gray-100 p-3 hidden lg:flex flex-col items-center z-10"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 flex items-center justify-center mb-2 shadow-md">
+                  <Star className="h-5 w-5 text-white fill-white" />
+                </div>
+                <div className="text-sm font-bold text-gray-900">4.9/5</div>
+                <div className="text-xs text-gray-500 text-center">satisfaction</div>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
