@@ -112,16 +112,16 @@ export function DashboardClient({ user }: DashboardClientProps) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-yellow-500/30">
                 <Calendar className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
                 Crenoz
               </span>
             </div>
             <div className="flex items-center gap-4">
               <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 border border-gray-200">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center">
                   <User className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-sm font-medium text-gray-700">{user.name || user.email}</span>
@@ -153,7 +153,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                 Bienvenue,
               </span>
               <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
                 {user.name || "Utilisateur"}
               </span>
             </h1>
@@ -173,7 +173,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
               onClick={() => setShowAvailability(false)}
               className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
                 !showAvailability
-                  ? "bg-white text-emerald-600 shadow-md"
+                  ? "bg-white text-blue-600 shadow-md"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -183,7 +183,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
               onClick={() => setShowAvailability(true)}
               className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
                 showAvailability
-                  ? "bg-white text-emerald-600 shadow-md"
+                  ? "bg-white text-blue-600 shadow-md"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -203,7 +203,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                   </p>
                 </div>
                 <Button
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300"
+                  className="bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 hover:from-yellow-500 hover:via-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all duration-300"
                   onClick={() => {
                     setEditingEventType(null);
                     setShowDialog(true);
@@ -223,9 +223,9 @@ export function DashboardClient({ user }: DashboardClientProps) {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-20 bg-gradient-to-br from-emerald-50/50 to-teal-50/50 rounded-3xl border-2 border-dashed border-emerald-200"
+                  className="text-center py-20 bg-gradient-to-br from-yellow-50/50 to-blue-50/50 rounded-3xl border-2 border-dashed border-yellow-200"
                 >
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/25">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-yellow-500/25">
                     <Calendar className="h-10 w-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -235,7 +235,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                     Créez votre premier type de rendez-vous pour commencer à recevoir des réservations
                   </p>
                   <Button
-                    className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300"
+                    className="bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 hover:from-yellow-500 hover:via-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all duration-300"
                     onClick={() => {
                       setEditingEventType(null);
                       setShowDialog(true);
@@ -254,14 +254,14 @@ export function DashboardClient({ user }: DashboardClientProps) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ y: -8, scale: 1.02 }}
-                      className="group relative bg-white rounded-2xl border border-gray-200 p-6 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                      className="group relative bg-white rounded-2xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-xl transition-all duration-300 overflow-hidden"
                     >
                       {/* Gradient overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-teal-50/0 to-emerald-50/0 group-hover:from-emerald-50/50 group-hover:via-teal-50/50 group-hover:to-emerald-50/50 transition-all duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/0 via-blue-50/0 to-cyan-50/0 group-hover:from-yellow-50/50 group-hover:via-blue-50/50 group-hover:to-cyan-50/50 transition-all duration-300" />
                       
                       <div className="relative z-10">
                         <div className="flex items-start justify-between mb-5">
-                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-emerald-500/25">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-yellow-500/25">
                             <Calendar className="h-7 w-7 text-white" />
                           </div>
                           <div className="flex gap-2">
@@ -272,7 +272,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                                 setEditingEventType(eventType);
                                 setShowDialog(true);
                               }}
-                              className="hover:bg-emerald-50 hover:text-emerald-600"
+                              className="hover:bg-blue-50 hover:text-blue-600"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -286,7 +286,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
                             </Button>
                           </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-emerald-600 transition-colors">
+                        <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
                           {eventType.name}
                         </h3>
                         {eventType.description && (

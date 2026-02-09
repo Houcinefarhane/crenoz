@@ -88,7 +88,7 @@ export default function LoginPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-emerald-400/15 via-teal-400/15 to-emerald-400/15 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-yellow-400/15 via-blue-400/15 to-yellow-400/15 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -101,7 +101,7 @@ export default function LoginPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-gradient-to-br from-teal-400/15 via-emerald-400/15 to-teal-400/15 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/15 via-cyan-400/15 to-blue-400/15 rounded-full blur-3xl"
         />
       </div>
 
@@ -118,10 +118,10 @@ export default function LoginPage() {
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-3 mb-8 cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-xl shadow-emerald-500/30">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-xl shadow-yellow-500/30">
                 <Calendar className="h-7 w-7 text-white" />
               </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
                 Crenoz
               </span>
             </motion.div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
               Bienvenue sur
             </span>
             <br />
-            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
               Crenoz
             </span>
           </h1>
@@ -155,7 +155,7 @@ export default function LoginPage() {
                 transition={{ delay: 0.3 + i * 0.1 }}
                 className="flex items-center gap-3"
               >
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
                   <CheckCircle2 className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-gray-700">{feature}</span>
@@ -179,10 +179,10 @@ export default function LoginPage() {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center justify-center gap-3 mb-4 cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-yellow-500/30">
                     <Calendar className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-yellow-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
                     Crenoz
                   </span>
                 </motion.div>
@@ -190,9 +190,9 @@ export default function LoginPage() {
             </div>
 
             <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200/60 mb-4">
-                <Sparkles className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-700">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-50 to-blue-50 border border-yellow-200/60 mb-4">
+                <Sparkles className="h-4 w-4 text-yellow-600" />
+                <span className="text-sm font-semibold bg-gradient-to-r from-yellow-700 to-blue-700 bg-clip-text text-transparent">
                   {isLogin ? "Connexion à votre compte" : "Création de compte"}
                 </span>
               </div>
@@ -220,7 +220,7 @@ export default function LoginPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-50/50 hover:bg-white"
+                    className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-gray-50/50 hover:bg-white"
                     placeholder="Votre nom"
                     required={!isLogin}
                   />
@@ -241,7 +241,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3.5 pl-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-50/50 hover:bg-white"
+                    className="w-full px-4 py-3.5 pl-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-gray-50/50 hover:bg-white"
                     placeholder="votre@email.com"
                     required
                   />
@@ -262,7 +262,7 @@ export default function LoginPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3.5 pl-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-50/50 hover:bg-white"
+                    className="w-full px-4 py-3.5 pl-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-gray-50/50 hover:bg-white"
                     placeholder="••••••••"
                     required
                   />
@@ -286,7 +286,7 @@ export default function LoginPage() {
               >
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-6 text-lg font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300 relative overflow-hidden group"
+                  className="w-full bg-gradient-to-r from-yellow-400 via-blue-500 to-cyan-500 hover:from-yellow-500 hover:via-blue-600 hover:to-cyan-600 text-white py-6 text-lg font-semibold shadow-lg shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all duration-300 relative overflow-hidden group"
                   disabled={loading}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
@@ -322,7 +322,7 @@ export default function LoginPage() {
                   setIsLogin(!isLogin);
                   setError("");
                 }}
-                className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold transition-colors"
+                className="text-sm bg-gradient-to-r from-yellow-600 to-blue-600 bg-clip-text text-transparent hover:from-yellow-700 hover:to-blue-700 font-semibold transition-all"
               >
                 {isLogin
                   ? "Pas encore de compte ? Créez-en un"

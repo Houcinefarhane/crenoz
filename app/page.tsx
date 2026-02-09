@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, CheckCircle2, Play, Sparkles, Zap, Clock, Users, TrendingUp, Star, Bell, CalendarCheck, MessageSquare } from "lucide-react";
+import { ArrowRight, Calendar, CheckCircle2, Play, Sparkles, Zap, Clock, Users, TrendingUp, Star, CalendarCheck } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -202,7 +202,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/50 via-blue-50/50 to-cyan-50/50" />
                 <div className="relative p-8 sm:p-12">
                   <div className="grid grid-cols-7 gap-2 mb-6">
-                    {Array.from({ length: 7 }).map((_, i) => (
+                    {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((day, i) => (
                       <div
                         key={i}
                         className={`aspect-square rounded-xl border-2 transition-all ${
@@ -214,7 +214,7 @@ export default function Home() {
                         }`}
                       >
                         <div className="h-full flex flex-col items-center justify-center p-2">
-                          <div className="text-xs text-gray-400 mb-1">Lun</div>
+                          <div className="text-xs text-gray-400 mb-1">{day}</div>
                           <div className={`text-lg font-bold ${i === 2 ? "text-blue-600" : "text-gray-900"}`}>
                             {i + 1}
                           </div>
@@ -235,31 +235,11 @@ export default function Home() {
               </div>
 
               {/* Floating Widgets */}
-              {/* Widget 1 - Notifications */}
-              <motion.div
-                initial={{ opacity: 0, x: -30, y: -30 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-                whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
-                className="absolute -top-6 -left-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-lg">
-                  <Bell className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 font-medium">Notifications</div>
-                  <div className="text-lg font-bold text-gray-900">3 nouvelles</div>
-                </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center">
-                  <span className="text-xs text-white font-bold">3</span>
-                </div>
-              </motion.div>
-
-              {/* Widget 2 - Rendez-vous confirmés */}
+              {/* Widget 1 - Rendez-vous confirmés */}
               <motion.div
                 initial={{ opacity: 0, x: 30, y: -30 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.1 }}
+                transition={{ duration: 0.8, delay: 1 }}
                 whileHover={{ scale: 1.1, rotate: [0, 5, -5, 5, 0] }}
                 className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
               >
@@ -272,27 +252,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Widget 3 - Messages */}
-              <motion.div
-                initial={{ opacity: 0, x: -30, y: 30 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
-                className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl border-2 border-gray-100 p-4 hidden sm:flex items-center gap-3 z-10"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg">
-                  <MessageSquare className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 font-medium">Messages</div>
-                  <div className="text-lg font-bold text-gray-900">12 non lus</div>
-                </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                  <span className="text-xs text-white font-bold">12</span>
-                </div>
-              </motion.div>
-
-              {/* Widget 4 - Statistiques */}
+              {/* Widget 2 - Statistiques */}
               <motion.div
                 initial={{ opacity: 0, x: 30, y: 30 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
