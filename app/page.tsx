@@ -1,24 +1,42 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, Zap, Shield, Globe, Sparkles } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Zap, Shield, Globe, Sparkles, CheckCircle2, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
 
 export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30">
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Animated background mesh */}
+      <div className="fixed inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
+      <div className="fixed inset-0 bg-dot-pattern opacity-30 pointer-events-none" />
+      
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 glass-effect border-b border-white/20 shadow-sm">
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-emerald-100/50 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl font-bold gradient-text"
+              className="flex items-center gap-3"
             >
-              Crenoz
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                <Calendar className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                Crenoz
+              </span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -27,12 +45,12 @@ export default function Home() {
               className="flex items-center gap-4"
             >
               <Link href="/login">
-                <Button variant="ghost" className="hidden sm:flex font-medium">
+                <Button variant="ghost" className="hidden sm:flex font-medium text-gray-700 hover:text-emerald-600">
                   Connexion
                 </Button>
               </Link>
               <Link href="/login">
-                <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/30">
+                <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300">
                   Commencer
                 </Button>
               </Link>
@@ -42,180 +60,277 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Background decorations */}
+      <section ref={heroRef} className="pt-40 pb-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Sophisticated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
             animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 90, 0],
+              scale: [1, 1.3, 1],
+              rotate: [0, 180, 360],
+              x: [0, 100, 0],
+              y: [0, -50, 0],
             }}
             transition={{
               duration: 20,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
             }}
-            className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-300/20 rounded-full blur-3xl"
+            className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-emerald-400/20 via-teal-400/20 to-emerald-400/20 rounded-full blur-3xl"
           />
           <motion.div
             animate={{
-              scale: [1, 1.3, 1],
-              rotate: [0, -90, 0],
+              scale: [1, 1.4, 1],
+              rotate: [360, 180, 0],
+              x: [0, -80, 0],
+              y: [0, 80, 0],
             }}
             transition={{
               duration: 25,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
             }}
-            className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-300/20 rounded-full blur-3xl"
+            className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-gradient-to-br from-teal-400/20 via-emerald-400/20 to-teal-400/20 rounded-full blur-3xl"
           />
         </div>
 
-        <div className="container mx-auto max-w-6xl relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center"
-          >
+        <motion.div 
+          style={{ y, opacity }}
+          className="container mx-auto max-w-7xl relative z-10"
+        >
+          <div className="text-center">
+            {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200/50 mb-8"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 border border-emerald-200/60 mb-8 shadow-sm"
             >
-              <Sparkles className="h-4 w-4 text-emerald-600" />
-              <span className="text-sm font-medium text-emerald-700">
-                La solution moderne de prise de rendez-vous
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-sm font-semibold text-emerald-700">
+                Solution professionnelle de prise de rendez-vous
               </span>
             </motion.div>
 
+            {/* Main headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-8 leading-[1.1] tracking-tight"
             >
-              <span className="gradient-text">Planifiez</span> vos rendez-vous
-              <br />
-              <span className="text-gray-900">en toute simplicité</span>
+              <span className="block bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+                Simplifiez vos
+              </span>
+              <span className="block mt-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                rendez-vous
+              </span>
             </motion.h1>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-xl sm:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="text-xl sm:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
             >
-              La solution moderne pour gérer vos rendez-vous en ligne.
-              <br />
-              <span className="text-gray-500">Économisez du temps et offrez une expérience fluide à vos clients.</span>
+              La plateforme moderne qui transforme la gestion de vos rendez-vous.
+              <br className="hidden sm:block" />
+              <span className="text-gray-500">Gagnez du temps, offrez une expérience exceptionnelle.</span>
             </motion.p>
             
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
             >
               <Link href="/login">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-8 py-6 text-lg font-semibold shadow-xl shadow-emerald-500/30 group relative overflow-hidden"
+                  className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-10 py-7 text-lg font-semibold shadow-xl shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-300 overflow-hidden"
                 >
-                  <span className="relative z-10 flex items-center">
-                    Commencer gratuitement
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    Démarrer gratuitement
+                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 shimmer" />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 1,
+                    }}
+                  />
                 </Button>
               </Link>
               <Button
                 size="lg"
                 variant="outline"
-                className="px-8 py-6 text-lg font-semibold border-2 border-gray-300 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all"
+                className="px-10 py-7 text-lg font-semibold border-2 border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-300 bg-white/80 backdrop-blur-sm"
               >
-                Voir une démo
+                Voir la démo
               </Button>
             </motion.div>
-          </motion.div>
 
-          {/* Hero Image/Illustration */}
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="flex flex-wrap justify-center gap-8 sm:gap-12"
+            >
+              {[
+                { value: "10k+", label: "Utilisateurs actifs" },
+                { value: "50k+", label: "Rendez-vous planifiés" },
+                { value: "99.9%", label: "Disponibilité" },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                  <div className="text-sm text-gray-500">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Hero Visual */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-20 relative"
+            transition={{ duration: 0.9, delay: 0.7 }}
+            className="mt-24 relative"
           >
-            <div className="relative glass-effect rounded-3xl shadow-2xl p-8 border border-white/20">
-              <div className="aspect-video bg-gradient-to-br from-emerald-100 via-teal-100 to-green-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-                <Calendar className="h-32 w-32 text-emerald-600 opacity-30 relative z-10" />
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute top-4 right-4 w-16 h-16 border-4 border-emerald-200 border-t-emerald-600 rounded-full"
-                />
+            <div className="relative">
+              {/* Main card */}
+              <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-teal-50/50 to-emerald-50/50" />
+                <div className="relative p-8 sm:p-12">
+                  <div className="grid grid-cols-7 gap-2 mb-6">
+                    {Array.from({ length: 7 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`aspect-square rounded-xl border-2 transition-all ${
+                          i === 2
+                            ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg scale-105"
+                            : i < 3
+                            ? "border-gray-200 hover:border-emerald-300 bg-white"
+                            : "border-gray-100 bg-gray-50 opacity-50"
+                        }`}
+                      >
+                        <div className="h-full flex flex-col items-center justify-center p-2">
+                          <div className="text-xs text-gray-400 mb-1">Lun</div>
+                          <div className={`text-lg font-bold ${i === 2 ? "text-emerald-600" : "text-gray-900"}`}>
+                            {i + 1}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm text-gray-500 mb-1">Prochain rendez-vous</div>
+                      <div className="text-xl font-bold text-gray-900">Consultation - 14:00</div>
+                    </div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Floating badges */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 hidden sm:block"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                    <Clock className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500">Temps économisé</div>
+                    <div className="text-lg font-bold text-gray-900">+40%</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 hidden sm:block"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500">Satisfaction</div>
+                    <div className="text-lg font-bold text-gray-900">98%</div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-            
-            {/* Floating elements */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
-            >
-              <Clock className="h-6 w-6" />
-            </motion.div>
-            
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -bottom-6 -left-6 bg-gradient-to-r from-teal-500 to-emerald-500 text-white p-4 rounded-2xl shadow-xl hidden sm:block"
-            >
-              <Zap className="h-6 w-6" />
-            </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50 backdrop-blur-sm">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/50 relative">
+        <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="gradient-text">Tout ce dont</span> vous avez besoin
+            <div className="inline-block px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200/60 mb-6">
+              <span className="text-sm font-semibold text-emerald-700">Fonctionnalités</span>
+            </div>
+            <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 tracking-tight">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Tout ce dont vous avez
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                besoin pour réussir
+              </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light">
-              Des fonctionnalités puissantes pour simplifier votre gestion de rendez-vous
+              Des outils puissants conçus pour simplifier votre quotidien professionnel
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 className="group relative"
               >
-                <div className="glass-effect rounded-2xl p-6 border border-white/20 hover:border-emerald-200/50 transition-all h-full">
-                  <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <feature.icon className="h-7 w-7 text-emerald-600" />
+                <div className="relative h-full bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  {/* Gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-teal-50/0 to-emerald-50/0 group-hover:from-emerald-50/50 group-hover:via-teal-50/50 group-hover:to-emerald-50/50 transition-all duration-300" />
+                  
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-emerald-500/25">
+                      <feature.icon className="h-7 w-7 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900 group-hover:text-emerald-600 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-[15px]">{feature.description}</p>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  
+                  {/* Decorative corner */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </motion.div>
             ))}
@@ -223,31 +338,107 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Social Proof Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Rejoignez des milliers
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                de professionnels
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { icon: Users, value: "10,000+", label: "Utilisateurs actifs" },
+              { icon: Calendar, value: "500k+", label: "Rendez-vous créés" },
+              { icon: TrendingUp, value: "98%", label: "Taux de satisfaction" },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center p-8 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-teal-50/50 border border-emerald-100/50"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/25">
+                  <stat.icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-4xl font-extrabold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-gray-600">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500" />
+      <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-600" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        
+        {/* Animated background elements */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-20 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [0, -90, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute bottom-20 left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"
+        />
+
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7 }}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-              Prêt à commencer ?
+            <h2 className="text-5xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight">
+              Prêt à transformer
+              <br />
+              votre gestion de rendez-vous ?
             </h2>
-            <p className="text-xl text-emerald-50 mb-8 max-w-2xl mx-auto font-light">
-              Rejoignez des milliers de professionnels qui font confiance à
-              Crenoz pour gérer leurs rendez-vous.
+            <p className="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+              Rejoignez Crenoz aujourd&apos;hui et découvrez comment simplifier votre quotidien professionnel.
             </p>
             <Link href="/login">
               <Button
                 size="lg"
-                className="bg-white text-emerald-600 hover:bg-gray-50 px-8 py-6 text-lg font-semibold shadow-xl hover:scale-105 transition-transform"
+                className="group bg-white text-emerald-600 hover:bg-gray-50 px-10 py-7 text-lg font-semibold shadow-2xl hover:scale-105 transition-all duration-300"
               >
-                Créer un compte gratuit
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <span className="flex items-center gap-2">
+                  Créer mon compte gratuit
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </Button>
             </Link>
           </motion.div>
@@ -255,11 +446,16 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-200 bg-white/50 backdrop-blur-sm">
-        <div className="container mx-auto max-w-6xl">
+      <footer className="py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-100 bg-white">
+        <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <div className="text-xl font-bold gradient-text mb-4 sm:mb-0">
-              Crenoz
+            <div className="flex items-center gap-3 mb-4 sm:mb-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                <Calendar className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                Crenoz
+              </span>
             </div>
             <div className="text-gray-600 text-sm">
               © 2024 Crenoz. Tous droits réservés.
@@ -276,36 +472,36 @@ const features = [
     icon: Calendar,
     title: "Calendrier intelligent",
     description:
-      "Gérez vos disponibilités en quelques clics et laissez vos clients réserver facilement.",
+      "Gérez vos disponibilités en quelques clics avec un système intuitif qui s&apos;adapte à vos besoins.",
   },
   {
     icon: Zap,
-    title: "Rapide et efficace",
+    title: "Configuration rapide",
     description:
-      "Configuration en moins de 5 minutes. Aucune compétence technique requise.",
+      "Mise en place en moins de 5 minutes. Interface simple, aucune compétence technique requise.",
   },
   {
     icon: Shield,
-    title: "Sécurisé",
+    title: "Sécurité renforcée",
     description:
-      "Vos données sont protégées avec les meilleures pratiques de sécurité.",
+      "Vos données sont protégées avec les standards les plus élevés de l&apos;industrie.",
   },
   {
     icon: Globe,
-    title: "Accessible partout",
+    title: "Multi-plateforme",
     description:
-      "Fonctionne sur tous les appareils. Vos clients peuvent réserver depuis n&apos;importe où.",
+      "Fonctionne parfaitement sur mobile, tablette et desktop. Accessible depuis n&apos;importe où.",
   },
   {
     icon: Clock,
-    title: "Synchronisation",
+    title: "Synchronisation temps réel",
     description:
-      "Synchronisez avec Google Calendar pour une gestion unifiée de votre emploi du temps.",
+      "Intégration avec Google Calendar pour une gestion unifiée et automatique de votre emploi du temps.",
   },
   {
-    icon: Calendar,
-    title: "Notifications",
+    icon: Sparkles,
+    title: "Notifications automatiques",
     description:
-      "Recevez des confirmations par email pour chaque rendez-vous réservé.",
+      "Confirmation par email pour chaque réservation. Vos clients restent informés à chaque étape.",
   },
 ];
